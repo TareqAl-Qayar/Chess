@@ -26,7 +26,11 @@ public class Bishop extends Piece {
 
 	@Override
 	public boolean legalMove(Square targetSquare) {
-		if(targetSquare.)
+		//if(targetSquare.)
+		return false;
+	}
+	
+	public boolean isWayFree() {
 		return false;
 	}
 
