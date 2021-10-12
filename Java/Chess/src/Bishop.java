@@ -26,7 +26,7 @@ public class Bishop extends Piece {
 
 	@Override
 	public boolean legalMove(Square targetSquare) {
-		// TODO Auto-generated method stub
+		if(targetSquare.)
 		return false;
 	}
 

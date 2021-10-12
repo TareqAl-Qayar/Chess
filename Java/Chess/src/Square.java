@@ -3,7 +3,7 @@
  * @author otari
  *
  */
-public class Square {
+public class Square implements Reachable {
 
 	private Colour colour;
 	private boolean occupied;
@@ -30,7 +30,19 @@ public class Square {
 		this.ycoordinate = y;
 	}
 
-
+	
+	
+	/**
+	 * Checks if the square is block by another piece of the same colour.
+	 * @param piece:piece to check if blocked by another piece of the same colour.
+	 * @return true if square has a piece of the same colour otherwise returns false.
+	 */
+	public boolean isBlocked(Piece piece) {
+		if(this.isOccupied() && this.getPiece().getColour() == piece.getColour()) {
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * @return

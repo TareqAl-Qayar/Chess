@@ -30,14 +30,24 @@ public abstract class Piece {
 	public abstract void move();//TODO check if square coordinates are not valid (off the board).
 	// TODO have to protect after being checked
 	
+	
+	
+	
+	// TODO change methods to check if there are pieces in the way between them and the target square.
+	/**
+	 * Checks if the move that is made is a legal move in terms of geometry and not being by own or other pieces.
+	 * @param targetSquare
+	 * @return
+	 */
 	public abstract boolean legalMove(Square targetSquare);
 	
 	public void capturePiece(Square targetSquare) {
 		targetSquare.getPiece().setCaptured(true);
-		
-		
-		
+		// TODO
 	}
+	
+	
+	
 	
 	
 	/**
