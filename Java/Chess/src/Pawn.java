@@ -60,7 +60,7 @@ public class Pawn extends Piece {
 		
 		//Capturing 
 		
-		if(targetSquare.isOccupied() && targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()+1 && (Math.abs(targetSquare.getXcooridiante()-this.getSquare().getXcooridiante())==1)){
+		if(targetSquare.isOccupied() && targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()+1 && (Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate())==1)){
 			this.capturePiece(targetSquare);
 			return true;
 		}
@@ -86,7 +86,7 @@ public class Pawn extends Piece {
 				
 				//Capturing 
 				
-				if(targetSquare.isOccupied() && targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()-1 && (Math.abs(targetSquare.getXcooridiante()-this.getSquare().getXcooridiante())==1)){
+				if(targetSquare.isOccupied() && targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()-1 && (Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate())==1)){
 					this.capturePiece(targetSquare);
 					return true;
 				}

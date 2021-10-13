@@ -75,7 +75,7 @@ public class Square implements Reachable {
 	/**
 	 * @return
 	 */
-	public int getXcooridiante() {
+	public int getXcoordinate() {
 		return xcoordinate;
 	}
 
@@ -84,7 +84,7 @@ public class Square implements Reachable {
 	/**
 	 * @param xcooridiante
 	 */
-	public void setXcooridiante(char xcooridiante) {
+	public void setXcoordinate(char xcooridiante) {
 		this.xcoordinate = xcooridiante;
 	}
 

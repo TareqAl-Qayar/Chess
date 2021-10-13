@@ -5,7 +5,7 @@
  */
 public class Board {
 
-	private Square[][] board = new Square[8][8];
+	private static Square[][] board = new Square[8][8];
 
 	private char xAxis [] = {'a','b','c','d','e','f','g','h'};
 
@@ -44,5 +44,10 @@ public class Board {
 		}
 
 		return board;
+	}
+	
+	
+	public static Square getSquare(int x , int y) {
+		return board[x][y];
 	}
 }
