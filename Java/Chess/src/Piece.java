@@ -24,6 +24,7 @@ public abstract class Piece {
 		this.square = square;
 		captured = false;
 		this.moves = 0;
+		square.setOccupied(true);
 	}
 
 

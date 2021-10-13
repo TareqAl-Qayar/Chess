@@ -48,6 +48,7 @@ public class Board {
 	
 	
 	public static Square getSquare(int x , int y) {
-		return board[x][y];
+		//Here the outside array is the Ycoordinate, thats why it has to come first.
+		return board[y-1][x-1];
 	}
 }

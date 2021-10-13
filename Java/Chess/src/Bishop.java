@@ -13,8 +13,8 @@ public class Bishop extends Piece {
 	 * @param colour
 	 * @param square
 	 */
-	public Bishop(PieceType type, Colour colour, Square square) {
-		super(type, colour, square);
+	public Bishop(Colour colour, Square square) {
+		super(PieceType.Bishop, colour, square);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -51,15 +51,21 @@ public class Bishop extends Piece {
 		int xSign = (int) Math.signum((targetSquare.getXcoordinate() - this.getSquare().getXcoordinate()));
 		int ySign = (int) Math.signum((targetSquare.getYcoordinate() - this.getSquare().getYcoordinate()));
 		
-		
-		int startX = Math.min(targetSquare.getXcoordinate(), this.getSquare().getXcoordinate());
-		int endX = Math.max(targetSquare.getXcoordinate(), this.getSquare().getXcoordinate());
-		
-		if(targetSquare.getYcoordinate() > this.getSquare().getYcoordinate()) {
-			for(int i = startX +1 ; i < endX ; i++) {
-				//if(Board.getSquare(x, y))
+		for(int i = this.getSquare().getXcoordinate() +(1*xSign) ; i == targetSquare.getXcoordinate() +(1*xSign); i = i +1*(xSign)) {
+			if(Board.getSquare(i, i).isOccupied()){
+				return false;
 			}
 		}
+		
+		
+//		int startX = Math.min(targetSquare.getXcoordinate(), this.getSquare().getXcoordinate());
+//		int endX = Math.max(targetSquare.getXcoordinate(), this.getSquare().getXcoordinate());
+//		
+//		if(targetSquare.getYcoordinate() > this.getSquare().getYcoordinate()) {
+//			for(int i = startX +1 ; i < endX ; i++) {
+//				//if(Board.getSquare(x, y))
+//			}
+//		}
 		
 		
 		

@@ -106,7 +106,7 @@ public class Square implements Reachable {
 	 *
 	 */
 	public String toString() {
-		return xcoordinate+ " " + ycoordinate+ " " + colour.toString();//TODO + piece.toString() with nullPointerException.
+		return xcoordinate+ " " + ycoordinate+ " " + colour.toString() + " " + isOccupied();//TODO + piece.toString() with nullPointerException.
 
 	}
 
