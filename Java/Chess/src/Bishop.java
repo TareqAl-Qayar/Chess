@@ -30,14 +30,15 @@ public class Bishop extends Piece {
 		if(isWayFree(targetSquare) == false) {
 			return false;
 		}
-		//check if its blocked by another piece of the same colour.
-		if(targetSquare.isBlocked(this)) {
-			return false;
-		}
 		// to check if it is on the same diagonal.
 		if(Math.abs(targetSquare.getXcoordinate() - this.getSquare().getXcoordinate()) != Math.abs(targetSquare.getYcoordinate() - this.getSquare().getYcoordinate())) {
 			return false;
 		}
+		//check if its blocked by another piece of the same colour.
+		if(targetSquare.isBlocked(this)) {
+			return false;
+		}
+
 		return true;
 	}
 
