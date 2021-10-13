@@ -48,6 +48,10 @@ public class Bishop extends Piece {
 	 */
 	public boolean isWayFree(Square targetSquare) {
 		// TODO daigonaly check if the squares in the way are free 
+		int xSign = (int) Math.signum((targetSquare.getXcoordinate() - this.getSquare().getXcoordinate()));
+		int ySign = (int) Math.signum((targetSquare.getYcoordinate() - this.getSquare().getYcoordinate()));
+		
+		
 		int startX = Math.min(targetSquare.getXcoordinate(), this.getSquare().getXcoordinate());
 		int endX = Math.max(targetSquare.getXcoordinate(), this.getSquare().getXcoordinate());
 		
