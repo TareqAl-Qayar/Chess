@@ -40,7 +40,7 @@ public class Bishop extends Piece {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Checks if the square between the current Square and the target Square are occupied by another piece.
 	 * @param targetSquare
@@ -48,41 +48,59 @@ public class Bishop extends Piece {
 	 */
 	public boolean isWayFree(Square targetSquare) {
 		// TODO daigonaly check if the squares in the way are free 
-		int xSign = (int) Math.signum((targetSquare.getXcoordinate() - this.getSquare().getXcoordinate()));
-		int ySign = (int) Math.signum((targetSquare.getYcoordinate() - this.getSquare().getYcoordinate()));
-		
-		for(int i = this.getSquare().getXcoordinate() +(1*xSign) ; i == targetSquare.getXcoordinate() +(1*xSign); i = i +1*(xSign)) {
-			if(Board.getSquare(i, i).isOccupied()){
-				return false;
+
+		// up and right.
+		if(targetSquare.getXcoordinate() > this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() > this.getSquare().getYcoordinate()) {
+			int yCounter = this.getSquare().getYcoordinate();
+			int xCounter = this.getSquare().getXcoordinate();
+			while ( xCounter < targetSquare.getXcoordinate()) {
+				xCounter ++;
+				yCounter ++;
+				if(Board.getSquare(xCounter, yCounter).isOccupied()) {
+					return false;
+				}
 			}
 		}
-		
-		
-//		int startX = Math.min(targetSquare.getXcoordinate(), this.getSquare().getXcoordinate());
-//		int endX = Math.max(targetSquare.getXcoordinate(), this.getSquare().getXcoordinate());
-//		
-//		if(targetSquare.getYcoordinate() > this.getSquare().getYcoordinate()) {
-//			for(int i = startX +1 ; i < endX ; i++) {
-//				//if(Board.getSquare(x, y))
-//			}
-//		}
-		
-		
-		
-//		if(targetSquare.getXcoordinate() > this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() > this.getSquare().getYcoordinate()) {
-//			for(int i = this.getSquare().getXcoordinate()+1 ; i <= targetSquare.getXcoordinate(); i++) {
-//				if(Board.getSquare(i,i).isOccupied()) {
-//					return false;
-//				}
-//			}
-//		}
-//		if(targetSquare.getXcoordinate() < this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() < this.getSquare().getYcoordinate()) {
-//			for(int i = this.getSquare().getXcoordinate()+1 ; i >= targetSquare.getXcoordinate(); i--) {
-//				if(Board.getSquare(i,i).isOccupied()) {
-//					return false;
-//				}
-//			}
-//		}
+
+		// up and left
+		if(targetSquare.getXcoordinate() < this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() > this.getSquare().getYcoordinate()) {
+			int yCounter = this.getSquare().getYcoordinate();
+			int xCounter = this.getSquare().getXcoordinate();
+			while ( xCounter > targetSquare.getXcoordinate()) {
+				xCounter --;
+				yCounter ++;
+				if(Board.getSquare(xCounter, yCounter).isOccupied()) {
+					return false;
+				}
+			}
+		}
+
+
+		// down and right
+		if(targetSquare.getXcoordinate() > this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() < this.getSquare().getYcoordinate()) {
+			int yCounter = this.getSquare().getYcoordinate();
+			int xCounter = this.getSquare().getXcoordinate();
+			while ( xCounter < targetSquare.getXcoordinate()) {
+				xCounter ++;
+				yCounter --;
+				if(Board.getSquare(xCounter, yCounter).isOccupied()) {
+					return false;
+				}
+			}
+		}
+
+		// down and left.
+		if(targetSquare.getXcoordinate() < this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() < this.getSquare().getYcoordinate()) {
+			int yCounter = this.getSquare().getYcoordinate();
+			int xCounter = this.getSquare().getXcoordinate();
+			while ( xCounter > targetSquare.getXcoordinate()) {
+				xCounter --;
+				yCounter --;
+				if(Board.getSquare(xCounter, yCounter).isOccupied()) {
+					return false;
+				}
+			}
+		}
 		return true;
 	}
 
