@@ -48,7 +48,6 @@ public class Bishop extends Piece {
 	 * @return false if there is a piece on a square between current square and targetSquare.
 	 */
 	public boolean isWayFree(Square targetSquare) {
-		// TODO daigonaly check if the squares in the way are free 
 
 		// up and right.
 		if(targetSquare.getXcoordinate() > this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() > this.getSquare().getYcoordinate()) {
