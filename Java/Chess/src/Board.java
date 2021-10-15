@@ -38,7 +38,7 @@ public class Board {
 		String board = "";
 		for(int y = 7 ; y>=0 ; y--) {
 			for(int x = 0; x<8; x++) {
-				board = board + this.board[y][x].toString() + " 	";
+				board = board + Board.board[y][x].toString() + " 	";
 			}
 			board = board + "\n";
 		}
