@@ -149,15 +149,19 @@ public class Square implements Reachable {
 		
 		
 		JLabel name = new JLabel((char)(xcoordinate + 96) + "" + ycoordinate);
-		if(isOccupied()) {
-			name.setText(name.getText() + getPiece().toString());
-		}
+		
 		name.setBackground(colour.getSquareColor());
 		name.setForeground(Color.black);
 		name.setFont(new Font("test",1,16));
 		
 		square.add(name);
 		name.setBounds(0,160,60,40);
+		
+		
+		
+		if(isOccupied()) {
+			square.add(piece.pieceGraphic());
+		}
 		
 		return square;
 		

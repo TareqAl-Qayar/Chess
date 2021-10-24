@@ -1,4 +1,5 @@
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * @author otari
@@ -63,9 +64,11 @@ public abstract class Piece {
 	
 	// TODO maybe use JButton.
 	// TODO use transparent background
-	public JLabel pieceGraphic() {
-		
-		return null;
+	public JPanel pieceGraphic() {
+		JPanel pieceGraphic = new JPanel();
+		// TODO change to an actual picture.
+		pieceGraphic.add(new JLabel(this.toString()));
+		return pieceGraphic;
 	}
 	
 	
