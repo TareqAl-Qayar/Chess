@@ -1,3 +1,4 @@
+import javax.swing.JLabel;
 
 /**
  * @author otari
@@ -25,12 +26,25 @@ public abstract class Piece {
 		captured = false;
 		this.moves = 0;
 		square.setOccupied(true);
+		square.setPiece(this);
 	}
 
-
-	public abstract void move();//TODO check if square coordinates are not valid (off the board).
+	// TODO check if square coordinates are not valid (off the board).
 	// TODO have to protect after being checked
 	// TODO can't move if pinned to the king.
+	// TODO change occupied states.
+	// TODO increment moves
+	public void move(Square targetSquare) {
+		if(this.legalMove(targetSquare)) {
+			getSquare().setOccupied(false);
+			setSquare(targetSquare);
+			targetSquare.setOccupied(true);
+			incrementMoves();
+		}
+		else {
+			System.out.println("Move not legal");
+		}
+	}
 	
 	
 	
@@ -44,6 +58,14 @@ public abstract class Piece {
 	public void capturePiece(Square targetSquare) {
 		targetSquare.getPiece().setCaptured(true);
 		// TODO 
+	}
+	
+	
+	// TODO maybe use JButton.
+	// TODO use transparent background
+	public JLabel pieceGraphic() {
+		
+		return null;
 	}
 	
 	

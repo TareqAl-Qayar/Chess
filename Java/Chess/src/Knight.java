@@ -5,10 +5,6 @@ public class Knight extends Piece {
 		super(PieceType.Knight, colour, square);
 	}
 
-	@Override
-	public void move() {
-
-	}
 
 	@Override
 	public boolean legalMove(Square targetSquare) {

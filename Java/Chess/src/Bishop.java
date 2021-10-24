@@ -17,11 +17,6 @@ public class Bishop extends Piece {
 		super(PieceType.Bishop, colour, square);
 	}
 
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public boolean legalMove(Square targetSquare) {

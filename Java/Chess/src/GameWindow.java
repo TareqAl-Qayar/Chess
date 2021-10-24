@@ -23,17 +23,10 @@ public class GameWindow {
 		f.add(p);
 		
 		Board b = new Board();
-		
+		Game g = new Game();
+		g.setBoard();
 		p.add(b.boardGraphic());
-//		JLabel l1 = new JLabel("label1");
-//		p.add(new Button("B1"));
-//		p.add(l1);
-//		
-//		JPanel p2 = new JPanel();
-//		p2.setBackground(Color.orange);
-//		p.add("SOUTH",p2);
-//		
-//		l1.setBackground(Color.white);
+
 		f.pack();
 		f.setVisible(true);
 	}

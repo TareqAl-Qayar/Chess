@@ -17,11 +17,6 @@ public class King extends Piece {
 		super(PieceType.King, colour, square);
 	}
 
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public boolean legalMove(Square targetSquare) {

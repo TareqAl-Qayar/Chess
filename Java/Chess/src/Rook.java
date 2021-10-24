@@ -14,14 +14,6 @@ public class Rook extends Piece {
 	}
 	
 	
-	/**
-	 *
-	 */
-	@Override
-	public void move() {
-		
-
-	}
 
 	@Override
 	public boolean legalMove(Square targetSquare) {

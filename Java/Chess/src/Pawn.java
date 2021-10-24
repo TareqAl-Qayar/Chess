@@ -13,13 +13,7 @@ public class Pawn extends Piece {
 		super(PieceType.Pawn, colour, square);
 	}
 
-	/**
-	 *
-	 */
-	@Override
-	public void move() {
-
-	}
+	
 
 	/**
 	 *
