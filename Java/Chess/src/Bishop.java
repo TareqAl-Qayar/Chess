@@ -15,7 +15,6 @@ public class Bishop extends Piece {
 	 */
 	public Bishop(Colour colour, Square square) {
 		super(PieceType.Bishop, colour, square);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

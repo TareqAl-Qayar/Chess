@@ -3,12 +3,10 @@ public class Knight extends Piece {
 
 	public Knight(Colour colour, Square square) {
 		super(PieceType.Knight, colour, square);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
 
 	}
 

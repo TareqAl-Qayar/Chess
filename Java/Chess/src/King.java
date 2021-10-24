@@ -13,9 +13,8 @@ public class King extends Piece {
 	 * @param colour
 	 * @param square
 	 */
-	public King(PieceType type, Colour colour, Square square) {
-		super(type, colour, square);
-		// TODO Auto-generated constructor stub
+	public King(Colour colour, Square square) {
+		super(PieceType.King, colour, square);
 	}
 
 	@Override
@@ -28,7 +27,20 @@ public class King extends Piece {
 	public boolean legalMove(Square targetSquare) {
 		// TODO cant move into check 
 		// TODO castling
-		return false;
+		
+		if(targetSquare.isBlocked(this)) {
+			return false;
+		}
+		
+		if(Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate()) !=1 || Math.abs(targetSquare.getYcoordinate() - this.getSquare().getYcoordinate())!=1) {
+			return false;
+		}
+		
+		if(targetSquare.isReachable()) {
+			return false;
+		}
+		
+		return true;
 	}
 
 }
