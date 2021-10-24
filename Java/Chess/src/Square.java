@@ -1,4 +1,10 @@
 
+import java.awt.*;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.Font;
+
 /**
  * @author otari
  *
@@ -106,7 +112,7 @@ public class Square implements Reachable {
 	 *
 	 */
 	public String toString() {
-		return xcoordinate+ " " + ycoordinate+ " " + colour.toString() + " " + isOccupied() + " ";//TODO + piece.toString() with nullPointerException.
+		return (char)(xcoordinate + 96)+""+ycoordinate+ " " + colour.toString() + " " + isOccupied() + " ";//TODO + piece.toString() with nullPointerException.
 
 	}
 
@@ -132,5 +138,25 @@ public class Square implements Reachable {
 	public boolean isReachable() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public JPanel squareGraphic() {
+		// TODO bottom row has letters bottom right, left column has number top left  
+		JPanel square = new JPanel();
+		square.setPreferredSize(new Dimension(200,200));
+		square.setBackground(colour.getSquareColor());
+		//square.setLayout(null);
+		
+		
+		JLabel name = new JLabel((char)(xcoordinate + 96) + "" + ycoordinate);
+		name.setBackground(colour.getSquareColor());
+		name.setForeground(Color.black);
+		name.setFont(new Font("test",1,16));
+		
+		square.add(name);
+		name.setBounds(0,160,60,40);
+		
+		return square;
+		
 	}
 }

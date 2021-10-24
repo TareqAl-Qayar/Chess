@@ -1,4 +1,4 @@
-
+import java.awt.Color;
 /**
  * @author otari
  *
@@ -16,5 +16,19 @@ public enum Colour {
 			return White;
 		}
 		return Black;
+	}
+	
+	public Color getSquareColor() {
+		if( this == Black) {
+			return new Color(46, 54, 33);
+		}
+		return new Color(232, 255, 189);
+	}
+	
+	public Color getPieceColor() {
+		if(this == Black) {
+			return new Color(0,0,0);
+		}
+		return new Color(255,255,255);
 	}
 }

@@ -11,7 +11,7 @@ public class GameWindow {
 		//Dimension d = new Dimension(500, 500);
 		JFrame f = new JFrame("Chess");
 		//f.setSize(d);
-		f.setBounds(0,0,1920,1080);
+		f.setBounds(0,0,250,250);
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		
@@ -22,15 +22,18 @@ public class GameWindow {
 		
 		f.add(p);
 		
-		JLabel l1 = new JLabel("label1");
-		p.add(new Button("B1"));
-		p.add(l1);
+		Board b = new Board();
 		
-		JPanel p2 = new JPanel();
-		p2.setBackground(Color.orange);
-		p.add(p2);
-		
-		l1.setBackground(Color.white);
+		p.add(b.boardGraphic());
+//		JLabel l1 = new JLabel("label1");
+//		p.add(new Button("B1"));
+//		p.add(l1);
+//		
+//		JPanel p2 = new JPanel();
+//		p2.setBackground(Color.orange);
+//		p.add("SOUTH",p2);
+//		
+//		l1.setBackground(Color.white);
 		f.pack();
 		f.setVisible(true);
 	}

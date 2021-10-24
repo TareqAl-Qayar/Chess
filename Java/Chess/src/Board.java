@@ -1,4 +1,8 @@
+import java.awt.Dimension;
 
+import javax.swing.JPanel;
+
+import java.awt.*;
 /**
  * @author otari
  *
@@ -6,9 +10,6 @@
 public class Board {
 
 	private static Square[][] board = new Square[8][8];
-
-	private char xAxis [] = {'a','b','c','d','e','f','g','h'};
-
 
 	/**
 	 * 
@@ -50,5 +51,19 @@ public class Board {
 	public static Square getSquare(int x , int y) {
 		//Here the outside array is the Ycoordinate, thats why it has to come first.
 		return board[y-1][x-1];
+	}
+	
+	public JPanel boardGraphic(){
+		JPanel board = new JPanel();
+		board.setPreferredSize(new Dimension(800,800));
+		board.setLayout(new GridLayout(8,8));
+		
+		for(int i = 7 ; i>=0;i--) {
+			for(int j = 0 ; j <8 ; j++) {
+				board.add(Board.board[i][j].squareGraphic());
+			}
+		}
+		
+		return board;
 	}
 }
