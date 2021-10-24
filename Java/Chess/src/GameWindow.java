@@ -11,22 +11,32 @@ public class GameWindow {
 		//Dimension d = new Dimension(500, 500);
 		JFrame f = new JFrame("Chess");
 		//f.setSize(d);
-		f.setBounds(0,0,250,250);
+		f.setBounds(0,0,1920,1080);
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		
 		
-		JPanel p = new JPanel();
-		p.setBackground(Color.gray);
-		//p.setLayout(new GridLayout());
+		JPanel background = new JPanel();
+		background.setBackground(Color.gray);
 		
-		f.add(p);
+		//TODO fix layout, next make place for captured pieces, implement capture, implement move with capture method. add listeners.
+		//background.setLayout(new GridLayout(0,3));
+		
+		JPanel leftSide = new JPanel();
+		leftSide.setPreferredSize(new Dimension(200,800));
+		leftSide.setBackground(Color.orange);
+		JPanel rightSide = new JPanel();
+		rightSide.setPreferredSize(new Dimension(200,800));
+		rightSide.setBackground(Color.black);
+		f.add(background);
 		
 		Board b = new Board();
 		Game g = new Game();
 		g.setBoard();
-		p.add(b.boardGraphic());
-
+		
+		background.add(leftSide);
+		background.add(b.boardGraphic());
+		background.add(rightSide);
 		f.pack();
 		f.setVisible(true);
 	}
