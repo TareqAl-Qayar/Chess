@@ -5,40 +5,79 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 public class GameWindow {
+	
+	JFrame window;
+	private static Bin binWhite;
+	private static Bin binBlack;
+	Board board;
+	
 
-	public GameWindow() {
-		// TODO Auto-generated constructor stub
-		//Dimension d = new Dimension(500, 500);
-		JFrame f = new JFrame("Chess");
-		//f.setSize(d);
-		f.setBounds(0,0,1920,1080);
-		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		
-		
+	public GameWindow(Board board) {
+		this.board = board;
+		createGameWindow();
+	}
+	
+	private void createGameWindow() {
+		window = new JFrame("Chess");
+		window.setSize(1200,800);
+		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		JPanel background = new JPanel();
-		background.setBackground(Color.gray);
+		background.setLayout(new BorderLayout());
+		window.add(background);
 		
-		//TODO fix layout, next make place for captured pieces, implement capture, implement move with capture method. add listeners.
-		//background.setLayout(new GridLayout(0,3));
+		JPanel leftPanel = new JPanel();
+		leftPanel.setPreferredSize(new Dimension(200,800));
+		leftPanel.setBackground(Color.gray);
+		leftPanel.setLayout(new BorderLayout());
 		
-		JPanel leftSide = new JPanel();
-		leftSide.setPreferredSize(new Dimension(200,800));
-		leftSide.setBackground(Color.orange);
-		JPanel rightSide = new JPanel();
-		rightSide.setPreferredSize(new Dimension(200,800));
-		rightSide.setBackground(Color.black);
-		f.add(background);
+		JPanel rightPanel = new JPanel();
+		rightPanel.setPreferredSize(new Dimension(200,800));
+		rightPanel.setBackground(Color.gray);
+		rightPanel.setLayout(new BorderLayout());
 		
-		Board b = new Board();
-		Game g = new Game();
-		g.setBoard();
+		background.add(leftPanel,BorderLayout.LINE_START);
+		background.add(board.getBoardGraphic());
+		background.add(rightPanel,BorderLayout.LINE_END);
 		
-		background.add(leftSide);
-		background.add(b.boardGraphic());
-		background.add(rightSide);
-		f.pack();
-		f.setVisible(true);
+		
+		Bin binWhite = new Bin(Colour.White);
+		rightPanel.add(binWhite.getBinGraphic(),BorderLayout.PAGE_END);
+		
+		Bin binBlack = new Bin(Colour.Black);
+		leftPanel.add(binBlack.getBinGraphic(),BorderLayout.PAGE_START);
+		
+		window.pack();
+		window.setVisible(true);
+	}
+	
+
+	/**
+	 * @return the binWhite
+	 */
+	public static Bin getBinWhite() {
+		return binWhite;
+	}
+
+	/**
+	 * @param binWhite the binWhite to set
+	 */
+	public static void setBinWhite(Bin binWhite) {
+		GameWindow.binWhite = binWhite;
+	}
+
+	/**
+	 * @return the binBlack
+	 */
+	public static Bin getBinBlack() {
+		return binBlack;
+	}
+
+	/**
+	 * @param binBlack the binBlack to set
+	 */
+	public static void setBinBlack(Bin binBlack) {
+		GameWindow.binBlack = binBlack;
 	}
 
 }

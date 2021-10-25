@@ -8,9 +8,11 @@ import java.awt.*;
  *
  */
 public class Board {
+	
+	private JPanel boardGraphic;
 
 	private static Square[][] board = new Square[8][8];
-
+	
 	/**
 	 * 
 	 */
@@ -53,19 +55,48 @@ public class Board {
 		return board[y-1][x-1];
 	}
 	
-	public JPanel boardGraphic(){
-		JPanel board = new JPanel();
-		board.setPreferredSize(new Dimension(800,800));
-		board.setLayout(new GridLayout(8,8));
+	public void CreateBoardGraphic(){
+		boardGraphic = new JPanel();
+		boardGraphic.setPreferredSize(new Dimension(800,800));
+		boardGraphic.setLayout(new GridLayout(8,8));
 		
 		for(int i = 7 ; i>=0;i--) {
 			for(int j = 0 ; j <8 ; j++) {
-				board.add(Board.board[i][j].squareGraphic());
+				boardGraphic.add(Board.board[i][j].squareGraphic());
 			}
 		}
 		
+	}
+
+	/**
+	 * @return the boardGraphic
+	 */
+	public JPanel getBoardGraphic() {
+		return boardGraphic;
+	}
+
+	/**
+	 * @param boardGraphic the boardGraphic to set
+	 */
+	public void setBoardGraphic(JPanel boardGraphic) {
+		this.boardGraphic = boardGraphic;
+	}
+
+	/**
+	 * @return the board
+	 */
+	public static Square[][] getBoard() {
 		return board;
 	}
+
+	/**
+	 * @param board the board to set
+	 */
+	public static void setBoard(Square[][] board) {
+		Board.board = board;
+	}
+
+	
 	
 	
 }

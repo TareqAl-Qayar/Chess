@@ -1,29 +1,41 @@
 
 public class Game {
-	Pawn pawnsWhite[] = new Pawn[8];
-	Pawn pawnsBlack[] = new Pawn[8];
-	Rook rookWhiteA;
-	Rook rookWhiteH;
-	Rook rookBlackA;
-	Rook rookBlackH;
-	Knight knightWhiteB;
-	Knight knightWhiteF;
-	Knight knightBlackB;
-	Knight knightBlackF;
-	Bishop bishopWhiteDark;
-	Bishop bishopWhiteLight;
-	Bishop bishopBlackDark;
-	Bishop bishopBlackLight;
-	King kingWhite;
-	King kingBlack;
-	Queen queenWhite;
-	Queen queenBlack;
+	
+	
+	
+	private Pawn pawnsWhite[] = new Pawn[8];
+	private Pawn pawnsBlack[] = new Pawn[8];
+	private Rook rookWhiteA;
+	private Rook rookWhiteH;
+	private Rook rookBlackA;
+	private Rook rookBlackH;
+	private Knight knightWhiteB;
+	private Knight knightWhiteF;
+	private Knight knightBlackB;
+	private Knight knightBlackF;
+	private Bishop bishopWhiteDark;
+	private Bishop bishopWhiteLight;
+	private Bishop bishopBlackDark;
+	private Bishop bishopBlackLight;
+	private King kingWhite;
+	private King kingBlack;
+	private Queen queenWhite;
+	private Queen queenBlack;
+	
+	
 	public Game() {
-		// TODO Auto-generated constructor stub
+		Board board = new Board();
+		setBoard();
+		board.CreateBoardGraphic();
+
+		GameWindow window = new GameWindow(board);
 	}
 
-
-	public void setBoard() {
+	
+	/**
+	 * Sets the board by creating the piece objects and placing them on the their initial squares.
+	 */
+	private void setBoard() {
 
 		for(int i = 1 ; i < 9 ; i++ ) {
 			pawnsWhite[i-1] = new Pawn(Colour.White, Board.getSquare(i, 2));
@@ -50,6 +62,306 @@ public class Game {
 
 		queenWhite = new Queen(Colour.White,Board.getSquare(4,1));
 		queenBlack = new Queen(Colour.Black,Board.getSquare(4, 8));
+	}
+
+	/**
+	 * Takes a String in the form of "{Square letter}{Square number}_{Square letter}{Square number}", the first 2 corresponding to the square the piece is on and the second to 
+	 * the square that the piece is moving to.
+	 * @param TextMove
+	 */
+	private void convertTextToMove(String TextMove) {
+		
+	}
+	
+	private void logMove() {
+		//TODO
+	}
+	
+	/**
+	 * @return the pawnsWhite
+	 */
+	public Pawn[] getPawnsWhite() {
+		return pawnsWhite;
+	}
+
+
+	/**
+	 * @param pawnsWhite the pawnsWhite to set
+	 */
+	public void setPawnsWhite(Pawn[] pawnsWhite) {
+		this.pawnsWhite = pawnsWhite;
+	}
+
+
+	/**
+	 * @return the pawnsBlack
+	 */
+	public Pawn[] getPawnsBlack() {
+		return pawnsBlack;
+	}
+
+
+	/**
+	 * @param pawnsBlack the pawnsBlack to set
+	 */
+	public void setPawnsBlack(Pawn[] pawnsBlack) {
+		this.pawnsBlack = pawnsBlack;
+	}
+
+
+	/**
+	 * @return the rookWhiteA
+	 */
+	public Rook getRookWhiteA() {
+		return rookWhiteA;
+	}
+
+
+	/**
+	 * @param rookWhiteA the rookWhiteA to set
+	 */
+	public void setRookWhiteA(Rook rookWhiteA) {
+		this.rookWhiteA = rookWhiteA;
+	}
+
+
+	/**
+	 * @return the rookWhiteH
+	 */
+	public Rook getRookWhiteH() {
+		return rookWhiteH;
+	}
+
+
+	/**
+	 * @param rookWhiteH the rookWhiteH to set
+	 */
+	public void setRookWhiteH(Rook rookWhiteH) {
+		this.rookWhiteH = rookWhiteH;
+	}
+
+
+	/**
+	 * @return the rookBlackA
+	 */
+	public Rook getRookBlackA() {
+		return rookBlackA;
+	}
+
+
+	/**
+	 * @param rookBlackA the rookBlackA to set
+	 */
+	public void setRookBlackA(Rook rookBlackA) {
+		this.rookBlackA = rookBlackA;
+	}
+
+
+	/**
+	 * @return the rookBlackH
+	 */
+	public Rook getRookBlackH() {
+		return rookBlackH;
+	}
+
+
+	/**
+	 * @param rookBlackH the rookBlackH to set
+	 */
+	public void setRookBlackH(Rook rookBlackH) {
+		this.rookBlackH = rookBlackH;
+	}
+
+
+	/**
+	 * @return the knightWhiteB
+	 */
+	public Knight getKnightWhiteB() {
+		return knightWhiteB;
+	}
+
+
+	/**
+	 * @param knightWhiteB the knightWhiteB to set
+	 */
+	public void setKnightWhiteB(Knight knightWhiteB) {
+		this.knightWhiteB = knightWhiteB;
+	}
+
+
+	/**
+	 * @return the knightWhiteF
+	 */
+	public Knight getKnightWhiteF() {
+		return knightWhiteF;
+	}
+
+
+	/**
+	 * @param knightWhiteF the knightWhiteF to set
+	 */
+	public void setKnightWhiteF(Knight knightWhiteF) {
+		this.knightWhiteF = knightWhiteF;
+	}
+
+
+	/**
+	 * @return the knightBlackB
+	 */
+	public Knight getKnightBlackB() {
+		return knightBlackB;
+	}
+
+
+	/**
+	 * @param knightBlackB the knightBlackB to set
+	 */
+	public void setKnightBlackB(Knight knightBlackB) {
+		this.knightBlackB = knightBlackB;
+	}
+
+
+	/**
+	 * @return the knightBlackF
+	 */
+	public Knight getKnightBlackF() {
+		return knightBlackF;
+	}
+
+
+	/**
+	 * @param knightBlackF the knightBlackF to set
+	 */
+	public void setKnightBlackF(Knight knightBlackF) {
+		this.knightBlackF = knightBlackF;
+	}
+
+
+	/**
+	 * @return the bishopWhiteDark
+	 */
+	public Bishop getBishopWhiteDark() {
+		return bishopWhiteDark;
+	}
+
+
+	/**
+	 * @param bishopWhiteDark the bishopWhiteDark to set
+	 */
+	public void setBishopWhiteDark(Bishop bishopWhiteDark) {
+		this.bishopWhiteDark = bishopWhiteDark;
+	}
+
+
+	/**
+	 * @return the bishopWhiteLight
+	 */
+	public Bishop getBishopWhiteLight() {
+		return bishopWhiteLight;
+	}
+
+
+	/**
+	 * @param bishopWhiteLight the bishopWhiteLight to set
+	 */
+	public void setBishopWhiteLight(Bishop bishopWhiteLight) {
+		this.bishopWhiteLight = bishopWhiteLight;
+	}
+
+
+	/**
+	 * @return the bishopBlackDark
+	 */
+	public Bishop getBishopBlackDark() {
+		return bishopBlackDark;
+	}
+
+
+	/**
+	 * @param bishopBlackDark the bishopBlackDark to set
+	 */
+	public void setBishopBlackDark(Bishop bishopBlackDark) {
+		this.bishopBlackDark = bishopBlackDark;
+	}
+
+
+	/**
+	 * @return the bishopBlackLight
+	 */
+	public Bishop getBishopBlackLight() {
+		return bishopBlackLight;
+	}
+
+
+	/**
+	 * @param bishopBlackLight the bishopBlackLight to set
+	 */
+	public void setBishopBlackLight(Bishop bishopBlackLight) {
+		this.bishopBlackLight = bishopBlackLight;
+	}
+
+
+	/**
+	 * @return the kingWhite
+	 */
+	public King getKingWhite() {
+		return kingWhite;
+	}
+
+
+	/**
+	 * @param kingWhite the kingWhite to set
+	 */
+	public void setKingWhite(King kingWhite) {
+		this.kingWhite = kingWhite;
+	}
+
+
+	/**
+	 * @return the kingBlack
+	 */
+	public King getKingBlack() {
+		return kingBlack;
+	}
+
+
+	/**
+	 * @param kingBlack the kingBlack to set
+	 */
+	public void setKingBlack(King kingBlack) {
+		this.kingBlack = kingBlack;
+	}
+
+
+	/**
+	 * @return the queenWhite
+	 */
+	public Queen getQueenWhite() {
+		return queenWhite;
+	}
+
+
+	/**
+	 * @param queenWhite the queenWhite to set
+	 */
+	public void setQueenWhite(Queen queenWhite) {
+		this.queenWhite = queenWhite;
+	}
+
+
+	/**
+	 * @return the queenBlack
+	 */
+	public Queen getQueenBlack() {
+		return queenBlack;
+	}
+
+
+	/**
+	 * @param queenBlack the queenBlack to set
+	 */
+	public void setQueenBlack(Queen queenBlack) {
+		this.queenBlack = queenBlack;
 	}
 
 }

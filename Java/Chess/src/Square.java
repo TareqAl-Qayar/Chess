@@ -18,7 +18,7 @@ public class Square implements Reachable {
 	private int ycoordinate;
 
 	private Piece piece;
-
+	private JPanel squareGraphic;
 
 
 
@@ -34,6 +34,9 @@ public class Square implements Reachable {
 		this.occupied = occupied;
 		this.xcoordinate = x;
 		this.ycoordinate = y;
+	}
+	
+	public Square() {
 	}
 
 	
@@ -142,9 +145,9 @@ public class Square implements Reachable {
 	
 	public JPanel squareGraphic() {
 		// TODO bottom row has letters bottom right, left column has number top left  
-		JPanel square = new JPanel();
-		square.setPreferredSize(new Dimension(200,200));
-		square.setBackground(colour.getSquareColor());
+		squareGraphic = new JPanel();
+		squareGraphic.setPreferredSize(new Dimension(100,100));
+		squareGraphic.setBackground(colour.getSquareColor());
 		//square.setLayout(null);
 		
 		
@@ -154,16 +157,30 @@ public class Square implements Reachable {
 		name.setForeground(Color.black);
 		name.setFont(new Font("test",1,16));
 		
-		square.add(name);
+		squareGraphic.add(name);
 		name.setBounds(0,160,60,40);
 		
 		
 		
 		if(isOccupied()) {
-			square.add(piece.pieceGraphic());
+			squareGraphic.add(piece.pieceGraphic());
 		}
 		
-		return square;
+		return squareGraphic;
 		
+	}
+
+	/**
+	 * @return the squareGraphic
+	 */
+	public JPanel getSquareGraphic() {
+		return squareGraphic;
+	}
+
+	/**
+	 * @param squareGraphic the squareGraphic to set
+	 */
+	public void setSquareGraphic(JPanel squareGraphic) {
+		this.squareGraphic = squareGraphic;
 	}
 }

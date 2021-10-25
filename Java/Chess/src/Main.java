@@ -12,15 +12,16 @@ public class Main {
 	// TODO implement castling 
 	// TODO implement en passant.
 	// TODO implement pawn promotion.
-	
+	// TODO implement turns and game starting with white to move.
+	// TODO create the graphic of the object in its constructor and change the graphic method to private and change the refrences to getGraphic().
+	// TODO add listeners.
+	// TODO change bin colours, so that they don't the board squares.
 	public static void main(String[] args) {
 		System.out.println("Test");
 
-		Board b = new Board();
-
-		System.out.println(b.toString());
-
-		GameWindow g = new GameWindow();
+		Game g = new Game();
+		
+		
 	}
 
 }

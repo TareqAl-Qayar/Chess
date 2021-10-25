@@ -43,15 +43,16 @@ public class Pawn extends Piece {
 		//Forward move
 		if(targetSquare.isOccupied() == false) {
 			//One square forward
-			if(targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()+1) {
+			if((targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()+1)&&(targetSquare.getXcoordinate()==this.getSquare().getXcoordinate())) {
 				return true;
 			}
 			//First move 2 Squares forward
-			if(targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()+2 && this.getSquare().getYcoordinate() ==2) {
+			if((targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()+2 && this.getSquare().getYcoordinate() ==2&&(targetSquare.getXcoordinate()==this.getSquare().getXcoordinate()))) {
 				return true;
 			}
 		}
-
+		
+		// TODO fix this, it is in the abstract class now.
 		//Capturing 
 
 		if(targetSquare.isOccupied() && targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()+1 && (Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate())==1)){
@@ -69,11 +70,11 @@ public class Pawn extends Piece {
 		//Forward move
 		if(targetSquare.isOccupied() == false) {
 			//One square forward
-			if(targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()-1) {
+			if(targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()-1&&(targetSquare.getXcoordinate()==this.getSquare().getXcoordinate())) {
 				return true;
 			}
 			//First move 2 Squares forward
-			if(targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()-2 && this.getSquare().getYcoordinate() ==2) {
+			if((targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()-2 && this.getSquare().getYcoordinate() ==7)&&(targetSquare.getXcoordinate()==this.getSquare().getXcoordinate())) {
 				return true;
 			}
 		}

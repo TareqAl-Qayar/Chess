@@ -7,17 +7,22 @@ import javax.swing.JPanel;
  */
 public abstract class Piece {
 
-	
+
 	private PieceType type;
 	private Colour colour;
 	boolean captured;
 	private Square square;
 	private int moves;
+
+	private JPanel pieceGraphic;
+
 	//Array of 2 int values first for x direction and second for y direction.
 	//int move[]= new int[2];
 	// maybe class MakeMove
-	
-	
+
+
+
+
 
 
 	protected Piece(PieceType type, Colour colour, Square square) {
@@ -37,44 +42,71 @@ public abstract class Piece {
 	// TODO increment moves
 	public void move(Square targetSquare) {
 		if(this.legalMove(targetSquare)) {
+			if(targetSquare.isOccupied()){
+				capturePiece(targetSquare);
+			}
+			
+			//TODO update Square and square graphic to no longer hold the piece and the pieceGraphic.
 			getSquare().setOccupied(false);
+			getSquare().setPiece(null);
+			getSquare().getSquareGraphic().remove(pieceGraphic);;
+			
+			
 			setSquare(targetSquare);
+			targetSquare.setPiece(this);
 			targetSquare.setOccupied(true);
+			targetSquare.getSquareGraphic().add(pieceGraphic);
 			incrementMoves();
 		}
 		else {
 			System.out.println("Move not legal");
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Checks if the move that is made is a legal move in terms of geometry and not being by own or other pieces.
-	 * @param targetSquare
-	 * @return
+	 * @param targetSquare The square that the piece is being moved to.
+	 * @return true if move is possible and legal, otherwise false.
 	 */
 	public abstract boolean legalMove(Square targetSquare);
+
 	
+	/**
+	 * 
+	 * @param targetSquare
+	 */
 	public void capturePiece(Square targetSquare) {
-		targetSquare.getPiece().setCaptured(true);
-		// TODO 
+		Piece targetPiece = targetSquare.getPiece();
+		targetPiece.setCaptured(true);
+		targetSquare.getSquareGraphic().remove(targetPiece.getPieceGraphic());
+		if (targetPiece.getColour()==Colour.White) {
+			targetPiece.setSquare(GameWindow.getBinBlack());
+			GameWindow.getBinBlack().addPiece(targetPiece);
+		} 
+		else {
+			targetPiece.setSquare(GameWindow.getBinWhite());
+			GameWindow.getBinWhite().addPiece(targetPiece);
+
+		}
+
 	}
-	
-	
+
+
 	// TODO maybe use JButton.
-	// TODO use transparent background
+	// TODO use transparent background for pictures of pieces.
 	public JPanel pieceGraphic() {
-		JPanel pieceGraphic = new JPanel();
+		pieceGraphic = new JPanel();
 		// TODO change to an actual picture.
 		pieceGraphic.add(new JLabel(this.toString()));
 		return pieceGraphic;
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	/**
 	 * @return the square
 	 */
@@ -82,14 +114,16 @@ public abstract class Piece {
 		return square;
 	}
 
+
+
 	/**
 	 * @param square the square to set
 	 */
 	public void setSquare(Square square) {
 		this.square = square;
 	}
-	
-	
+
+
 	/**
 	 * @return the type
 	 */
@@ -136,12 +170,12 @@ public abstract class Piece {
 	public void setCaptured(boolean captured) {
 		this.captured = captured;
 	}
-	
+
 	public String toString() {
 		return this.type.toString() + " " + this.colour.toString();
 	}
-	
-	
+
+
 	/**
 	 * @return the moves
 	 */
@@ -156,11 +190,25 @@ public abstract class Piece {
 	public void setMoves(int moves) {
 		this.moves = moves;
 	}
-	
+
 	/**
 	 * increments moves variable by 1.
 	 */
 	public void incrementMoves() {
 		this.moves = this.moves + 1;
+	}
+
+	/**
+	 * @return the pieceGraphic
+	 */
+	public JPanel getPieceGraphic() {
+		return pieceGraphic;
+	}
+
+	/**
+	 * @param pieceGraphic the pieceGraphic to set
+	 */
+	public void setPieceGraphic(JPanel pieceGraphic) {
+		this.pieceGraphic = pieceGraphic;
 	}
 }
