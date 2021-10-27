@@ -1,37 +1,33 @@
 
 public class Game {
-	
-	
-	
+
+
+
 	private Pawn pawnsWhite[] = new Pawn[8];
 	private Pawn pawnsBlack[] = new Pawn[8];
-	private Rook rookWhiteA;
-	private Rook rookWhiteH;
-	private Rook rookBlackA;
-	private Rook rookBlackH;
-	private Knight knightWhiteB;
-	private Knight knightWhiteF;
-	private Knight knightBlackB;
-	private Knight knightBlackF;
-	private Bishop bishopWhiteDark;
-	private Bishop bishopWhiteLight;
-	private Bishop bishopBlackDark;
-	private Bishop bishopBlackLight;
-	private King kingWhite;
-	private King kingBlack;
-	private Queen queenWhite;
-	private Queen queenBlack;
+	private Rook rookWhiteA,rookWhiteH,rookBlackA,rookBlackH;
+	private Knight knightWhiteB,knightWhiteF,knightBlackB,knightBlackF;
+	private Bishop bishopWhiteDark,bishopWhiteLight,bishopBlackDark,bishopBlackLight;
+	private King kingWhite,kingBlack;
+	private Queen queenWhite,queenBlack;
 	
-	
+	private static Square startingSquare;
+	private static Square targetSquare;
+	private static GameWindow window;
+
 	public Game() {
 		Board board = new Board();
 		setBoard();
 		board.CreateBoardGraphic();
 
-		GameWindow window = new GameWindow(board);
+		window = new GameWindow(board);
+		
+		startingSquare = board.getSquare(4, 2);
+		targetSquare = board.getSquare(4, 5);
+		move();
 	}
 
-	
+
 	/**
 	 * Sets the board by creating the piece objects and placing them on the their initial squares.
 	 */
@@ -46,7 +42,7 @@ public class Game {
 		rookWhiteH = new Rook(Colour.White, Board.getSquare(8, 1));
 		rookBlackA = new Rook(Colour.Black, Board.getSquare(1, 8));
 		rookBlackH = new Rook(Colour.Black, Board.getSquare(8, 8));
-		
+
 		knightWhiteB = new Knight(Colour.White,Board.getSquare(2, 1));
 		knightWhiteF = new Knight(Colour.White,Board.getSquare(7, 1));
 		knightBlackB = new Knight(Colour.Black,Board.getSquare(2, 8));
@@ -70,13 +66,68 @@ public class Game {
 	 * @param TextMove
 	 */
 	private void convertTextToMove(String TextMove) {
-		
+		// TODO
 	}
-	
+
 	private void logMove() {
 		//TODO
 	}
-	
+
+	// TODO check if square coordinates are not valid (off the board).
+	// TODO have to protect after being checked
+	// TODO can't move if pinned to the king.
+	public static void move() {
+		// TODO add try catch null pointer exception?
+
+		if (startingSquare.isOccupied()==true) {
+			Piece piece = startingSquare.getPiece();
+			if (piece.legalMove(targetSquare)) {
+				if (targetSquare.isOccupied()) {
+					capturePiece();
+				}
+
+				startingSquare.setOccupied(false);
+				startingSquare.setPiece(null);
+				startingSquare.getSquareGraphic().remove(piece.getPieceGraphic());
+
+				piece.setSquare(targetSquare);
+				targetSquare.setPiece(piece);
+				targetSquare.setPiece(piece);
+				targetSquare.getSquareGraphic().add(piece.getPieceGraphic());
+				piece.incrementMoves();
+			}
+			startingSquare = null;
+			targetSquare = null;
+		}
+		else {
+			outputMessage("Move not possible.");
+		}
+	}
+	/**
+	 * is called when the targetSquare is Occupied by a piece of the opposite colour, frees
+	 * the targetSquare and changes the square for the previous piece to binWhite or binBlack
+	 * depending on its colour.
+	 * @param targetSquare on which the piece to be captured is.
+	 */
+	public static void capturePiece() {
+		Piece targetPiece = targetSquare.getPiece();
+		targetPiece.setCaptured(true);
+		targetSquare.getSquareGraphic().remove(targetPiece.getPieceGraphic());
+		if(targetPiece.getColour()==Colour.White) {
+			targetPiece.setSquare(GameWindow.getBinBlack());
+			GameWindow.getBinBlack().addPiece(targetPiece);
+		}
+		else {
+			targetPiece.setSquare(GameWindow.getBinWhite());
+			GameWindow.getBinWhite().addPiece(targetPiece);
+		}
+	}
+
+	public static void outputMessage(String text) {
+		window.getOutputField().setText(text);
+		System.out.println(text);
+	}
+
 	/**
 	 * @return the pawnsWhite
 	 */
@@ -250,6 +301,38 @@ public class Game {
 	 */
 	public void setBishopWhiteDark(Bishop bishopWhiteDark) {
 		this.bishopWhiteDark = bishopWhiteDark;
+	}
+
+
+	/**
+	 * @return the staringSquare
+	 */
+	public static Square getStaringSquare() {
+		return startingSquare;
+	}
+
+
+	/**
+	 * @return the targetSquare
+	 */
+	public static Square getTargetSquare() {
+		return targetSquare;
+	}
+
+
+	/**
+	 * @param targetSquare the targetSquare to set
+	 */
+	public static void setTargetSquare(Square square) {
+		targetSquare = square;
+	}
+
+
+	/**
+	 * @param staringSquare the staringSquare to set
+	 */
+	public static void setStaringSquare(Square staringSquare) {
+		startingSquare = staringSquare;
 	}
 
 

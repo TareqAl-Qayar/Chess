@@ -35,33 +35,29 @@ public abstract class Piece {
 		square.setPiece(this);
 	}
 
-	// TODO check if square coordinates are not valid (off the board).
-	// TODO have to protect after being checked
-	// TODO can't move if pinned to the king.
-	// TODO change occupied states.
-	// TODO increment moves
-	public void move(Square targetSquare) {
-		if(this.legalMove(targetSquare)) {
-			if(targetSquare.isOccupied()){
-				capturePiece(targetSquare);
-			}
-			
-			//TODO update Square and square graphic to no longer hold the piece and the pieceGraphic.
-			getSquare().setOccupied(false);
-			getSquare().setPiece(null);
-			getSquare().getSquareGraphic().remove(pieceGraphic);;
-			
-			
-			setSquare(targetSquare);
-			targetSquare.setPiece(this);
-			targetSquare.setOccupied(true);
-			targetSquare.getSquareGraphic().add(pieceGraphic);
-			incrementMoves();
-		}
-		else {
-			System.out.println("Move not legal");
-		}
-	}
+	
+// MOVED TO GAME CLASS!
+//	public void move(Square targetSquare) {
+//		if(this.legalMove(targetSquare)) {
+//			if(targetSquare.isOccupied()){
+//				capturePiece(targetSquare);
+//			}
+//			
+//			getSquare().setOccupied(false);
+//			getSquare().setPiece(null);
+//			getSquare().getSquareGraphic().remove(pieceGraphic);;
+//			
+//			
+//			setSquare(targetSquare);
+//			targetSquare.setPiece(this);
+//			targetSquare.setOccupied(true);
+//			targetSquare.getSquareGraphic().add(pieceGraphic);
+//			incrementMoves();
+//		}
+//		else {
+//			System.out.println("Move not legal");
+//		}
+//	}
 
 
 
@@ -73,25 +69,22 @@ public abstract class Piece {
 	public abstract boolean legalMove(Square targetSquare);
 
 	
-	/**
-	 * 
-	 * @param targetSquare
-	 */
-	public void capturePiece(Square targetSquare) {
-		Piece targetPiece = targetSquare.getPiece();
-		targetPiece.setCaptured(true);
-		targetSquare.getSquareGraphic().remove(targetPiece.getPieceGraphic());
-		if (targetPiece.getColour()==Colour.White) {
-			targetPiece.setSquare(GameWindow.getBinBlack());
-			GameWindow.getBinBlack().addPiece(targetPiece);
-		} 
-		else {
-			targetPiece.setSquare(GameWindow.getBinWhite());
-			GameWindow.getBinWhite().addPiece(targetPiece);
-
-		}
-
-	}
+// MOVED TO GAME CLASS!
+//	public void capturePiece(Square targetSquare) {
+//		Piece targetPiece = targetSquare.getPiece();
+//		targetPiece.setCaptured(true);
+//		targetSquare.getSquareGraphic().remove(targetPiece.getPieceGraphic());
+//		if (targetPiece.getColour()==Colour.White) {
+//			targetPiece.setSquare(GameWindow.getBinBlack());
+//			GameWindow.getBinBlack().addPiece(targetPiece);
+//		} 
+//		else {
+//			targetPiece.setSquare(GameWindow.getBinWhite());
+//			GameWindow.getBinWhite().addPiece(targetPiece);
+//
+//		}
+//
+//	}
 
 
 	// TODO maybe use JButton.

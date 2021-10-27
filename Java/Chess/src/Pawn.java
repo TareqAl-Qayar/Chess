@@ -55,8 +55,7 @@ public class Pawn extends Piece {
 		// TODO fix this, it is in the abstract class now.
 		//Capturing 
 
-		if(targetSquare.isOccupied() && targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()+1 && (Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate())==1)){
-			this.capturePiece(targetSquare);
+		if((targetSquare.isOccupied()&&targetSquare.getPiece().getColour()!=this.getColour() && targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()+1 )&& (Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate())==1)){
 			return true;
 		}
 		return false;
@@ -81,8 +80,7 @@ public class Pawn extends Piece {
 
 		//Capturing 
 
-		if(targetSquare.isOccupied() && targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()-1 && (Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate())==1)){
-			this.capturePiece(targetSquare);
+		if((targetSquare.isOccupied()&&targetSquare.getPiece().getColour()!=this.getColour()  && targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()-1) && (Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate())==1)){
 			return true;
 		}
 		return false;

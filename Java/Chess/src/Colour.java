@@ -31,4 +31,12 @@ public enum Colour {
 		}
 		return new Color(255,255,255);
 	}
+	
+	public Color getBinColor() {
+		if(this == Black) {
+			return new Color(58, 61, 45);
+		}
+		return new Color(211, 219, 173);
+	}
+	
 }

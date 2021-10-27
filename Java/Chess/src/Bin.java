@@ -24,10 +24,15 @@ public class Bin extends Square {
 	public void binGraphic() {
 		binGraphic = new JPanel();
 		binGraphic.setPreferredSize(new Dimension(200,400));
-		binGraphic.setBackground(colour.getSquareColor());
+		binGraphic.setBackground(colour.getBinColor());
 
 	}
-
+	
+	/**
+	 * Adds the piece to the bins array of Pieces and also adds the piece's graphic onto
+	 * the bins JPanel.
+	 * @param piece
+	 */
 	public void addPiece(Piece piece) {
 		pieces.add(piece);
 		//TODO add to the graphic

@@ -1,6 +1,6 @@
 
 import java.awt.*;
-
+import java.awt.event.*;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Font;
@@ -9,7 +9,7 @@ import java.awt.Font;
  * @author otari
  *
  */
-public class Square implements Reachable {
+public class Square implements Reachable , ActionListener {
 
 	private Colour colour;
 	private boolean occupied;
@@ -144,6 +144,8 @@ public class Square implements Reachable {
 	}
 	
 	public JPanel squareGraphic() {
+		Square square = this;
+		
 		// TODO bottom row has letters bottom right, left column has number top left  
 		squareGraphic = new JPanel();
 		squareGraphic.setPreferredSize(new Dimension(100,100));
@@ -160,13 +162,34 @@ public class Square implements Reachable {
 		squareGraphic.add(name);
 		name.setBounds(0,160,60,40);
 		
+		squareGraphic.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if (Game.getStaringSquare()==null&& square.isOccupied()) {
+					Game.setStaringSquare(square);
+					Game.outputMessage(square.getXcoordinate()+""+square.getYcoordinate());
+					System.out.println(square.toString());
+				}
+				else {
+					Game.setTargetSquare(square);
+					Game.move();
+					System.out.println(square.toString());
+
+				}
+				
+			}
+		});
 		
+
 		
 		if(isOccupied()) {
 			squareGraphic.add(piece.pieceGraphic());
 		}
 		
 		return squareGraphic;
+		
+		
 		
 	}
 
@@ -182,5 +205,11 @@ public class Square implements Reachable {
 	 */
 	public void setSquareGraphic(JPanel squareGraphic) {
 		this.squareGraphic = squareGraphic;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println(toString());
+		
 	}
 }
