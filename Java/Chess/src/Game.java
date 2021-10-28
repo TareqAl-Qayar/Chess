@@ -1,4 +1,11 @@
 
+/**
+ * 
+ * @author Tareq Al-Qayar
+ * @version 1.0
+ * @since 28/10/2021
+ *
+ */
 public class Game {
 
 
@@ -10,21 +17,23 @@ public class Game {
 	private Bishop bishopWhiteDark,bishopWhiteLight,bishopBlackDark,bishopBlackLight;
 	private King kingWhite,kingBlack;
 	private Queen queenWhite,queenBlack;
-	
+
 	private static Square startingSquare;
 	private static Square targetSquare;
 	private static GameWindow window;
+	private static boolean turnWhite;
 
 	public Game() {
 		Board board = new Board();
 		setBoard();
 		board.CreateBoardGraphic();
+		turnWhite=true;
 
 		window = new GameWindow(board);
-		
-		startingSquare = board.getSquare(4, 2);
-		targetSquare = board.getSquare(4, 5);
-		move();
+
+		//startingSquare = board.getSquare(4, 2);
+		//targetSquare = board.getSquare(4, 4);
+		//move();
 	}
 
 
@@ -79,28 +88,40 @@ public class Game {
 	public static void move() {
 		// TODO add try catch null pointer exception?
 
-		if (startingSquare.isOccupied()==true) {
-			Piece piece = startingSquare.getPiece();
-			if (piece.legalMove(targetSquare)) {
-				if (targetSquare.isOccupied()) {
-					capturePiece();
+		if(turnWhite == startingSquare.getPiece().getColour().ColourToBoolean()) {
+			if (startingSquare.isOccupied()==true) {
+				Piece piece = startingSquare.getPiece();
+				if (piece.legalMove(targetSquare)) {
+					if (targetSquare.isOccupied()) {
+						capturePiece();
+					}
+
+					startingSquare.setOccupied(false);
+					startingSquare.setPiece(null);
+					startingSquare.getSquareGraphic().remove(piece.getPieceGraphic());
+
+					targetSquare.setOccupied(true);
+					piece.setSquare(targetSquare);
+					targetSquare.setPiece(piece);
+					targetSquare.setPiece(piece);
+					targetSquare.getSquareGraphic().add(piece.getPieceGraphic());
+					piece.incrementMoves();
+
+
 				}
-
-				startingSquare.setOccupied(false);
-				startingSquare.setPiece(null);
-				startingSquare.getSquareGraphic().remove(piece.getPieceGraphic());
-
-				piece.setSquare(targetSquare);
-				targetSquare.setPiece(piece);
-				targetSquare.setPiece(piece);
-				targetSquare.getSquareGraphic().add(piece.getPieceGraphic());
-				piece.incrementMoves();
+				startingSquare.repaintSquare();
+				startingSquare.getSquareGraphic().repaint();
+				targetSquare.getSquareGraphic().repaint();
+				startingSquare = null;
+				targetSquare = null;
+				turnWhite = !turnWhite;
 			}
-			startingSquare = null;
-			targetSquare = null;
 		}
 		else {
 			outputMessage("Move not possible.");
+			startingSquare.repaintSquare();
+			startingSquare=null;
+			targetSquare=null;
 		}
 	}
 	/**
@@ -116,10 +137,12 @@ public class Game {
 		if(targetPiece.getColour()==Colour.White) {
 			targetPiece.setSquare(GameWindow.getBinBlack());
 			GameWindow.getBinBlack().addPiece(targetPiece);
+			GameWindow.getBinBlack().getBinGraphic().repaint();
 		}
 		else {
 			targetPiece.setSquare(GameWindow.getBinWhite());
 			GameWindow.getBinWhite().addPiece(targetPiece);
+			GameWindow.getBinWhite().getBinGraphic().repaint();
 		}
 	}
 

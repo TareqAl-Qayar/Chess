@@ -1,5 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+/**
+ * 
+ * @author Tareq Al-Qayar
+ * @version 1.0
+ * @since 28/10/2021
+ *
+ */
 public class Main {
 
 	// TODO game input through chess notation.
@@ -12,8 +19,8 @@ public class Main {
 	// TODO implement pawn promotion.
 	// TODO implement turns and game starting with white to move.
 	// TODO create the graphic of the object in its constructor and change the graphic method to private and change the references to getGraphic().
-	// TODO add listeners.
-	// TODO change bin colours, so that they don't the board squares.
+	// TODO change red colour so that it isn't as strong.
+	// TODO create small methods to house long recurring/functionalities.(Clean up)
 	public static void main(String[] args) {
 		System.out.println("Test");
 

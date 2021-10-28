@@ -4,7 +4,10 @@ import javax.swing.JPanel;
 
 import java.awt.*;
 /**
- * @author otari
+ * 
+ * @author Tareq Al-Qayar
+ * @version 1.0
+ * @since 28/10/2021
  *
  */
 public class Board {

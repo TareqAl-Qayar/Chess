@@ -1,4 +1,11 @@
 
+/**
+ * 
+ * @author Tareq Al-Qayar
+ * @version 1.0
+ * @since 28/10/2021
+ *
+ */
 public class Knight extends Piece {
 
 	public Knight(Colour colour, Square square) {

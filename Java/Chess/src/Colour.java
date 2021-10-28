@@ -1,6 +1,9 @@
 import java.awt.Color;
 /**
- * @author otari
+ * 
+ * @author Tareq Al-Qayar
+ * @version 1.0
+ * @since 28/10/2021
  *
  */
 public enum Colour {
@@ -16,6 +19,13 @@ public enum Colour {
 			return White;
 		}
 		return Black;
+	}
+	
+	public boolean ColourToBoolean() {
+		if(this == Black) {
+			return false;
+		}
+		return true;
 	}
 	
 	public Color getSquareColor() {

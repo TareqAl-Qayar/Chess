@@ -4,6 +4,13 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
+/**
+ * 
+ * @author Tareq Al-Qayar
+ * @version 1.0
+ * @since 28/10/2021
+ *
+ */
 public class Bin extends Square {
 
 	private Set<Piece> pieces;

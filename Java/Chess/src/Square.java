@@ -6,7 +6,10 @@ import javax.swing.JPanel;
 import java.awt.Font;
 
 /**
- * @author otari
+ * 
+ * @author Tareq Al-Qayar
+ * @version 1.0
+ * @since 28/10/2021
  *
  */
 public class Square implements Reachable , ActionListener {
@@ -35,12 +38,12 @@ public class Square implements Reachable , ActionListener {
 		this.xcoordinate = x;
 		this.ycoordinate = y;
 	}
-	
+
 	public Square() {
 	}
 
-	
-	
+
+
 	/**
 	 * Checks if the square is block by another piece of the same colour.
 	 * @param piece:piece to check if blocked by another piece of the same colour.
@@ -142,55 +145,65 @@ public class Square implements Reachable , ActionListener {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	public JPanel squareGraphic() {
 		Square square = this;
-		
+
 		// TODO bottom row has letters bottom right, left column has number top left  
 		squareGraphic = new JPanel();
 		squareGraphic.setPreferredSize(new Dimension(100,100));
 		squareGraphic.setBackground(colour.getSquareColor());
 		//square.setLayout(null);
-		
-		
+
+
 		JLabel name = new JLabel((char)(xcoordinate + 96) + "" + ycoordinate);
-		
+
 		name.setBackground(colour.getSquareColor());
 		name.setForeground(Color.black);
 		name.setFont(new Font("test",1,16));
-		
+
 		squareGraphic.add(name);
 		name.setBounds(0,160,60,40);
-		
+
 		squareGraphic.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
 				if (Game.getStaringSquare()==null&& square.isOccupied()) {
 					Game.setStaringSquare(square);
-					Game.outputMessage(square.getXcoordinate()+""+square.getYcoordinate());
+					//Game.outputMessage(square.getXcoordinate()+""+square.getYcoordinate());
 					System.out.println(square.toString());
+					square.getSquareGraphic().setBackground(Color.red);
 				}
 				else {
-					Game.setTargetSquare(square);
-					Game.move();
-					System.out.println(square.toString());
+
+					if (Game.getStaringSquare()!=null && Game.getTargetSquare()==null) {
+						Game.setTargetSquare(square);
+						Game.move();
+						System.out.println(square.toString());
+					}
 
 				}
-				
+
 			}
 		});
-		
 
-		
+
+
+
 		if(isOccupied()) {
 			squareGraphic.add(piece.pieceGraphic());
 		}
-		
+
 		return squareGraphic;
-		
-		
-		
+
+
+
+	}
+
+
+	public void repaintSquare() {
+		squareGraphic.setBackground(colour.getSquareColor());
 	}
 
 	/**
@@ -210,6 +223,6 @@ public class Square implements Reachable , ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(toString());
-		
+
 	}
 }
