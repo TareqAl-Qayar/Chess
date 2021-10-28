@@ -30,11 +30,13 @@ public class King extends Piece {
 			return false;
 		}
 		
-		if(Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate()) !=1 || Math.abs(targetSquare.getYcoordinate() - this.getSquare().getYcoordinate())!=1) {
+		
+		
+		if(targetSquare.isReachable()) {
 			return false;
 		}
 		
-		if(targetSquare.isReachable()) {
+		if(Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate()) ==1 || Math.abs(targetSquare.getYcoordinate() - this.getSquare().getYcoordinate())==1) {
 			return false;
 		}
 		

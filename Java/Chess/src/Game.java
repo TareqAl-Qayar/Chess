@@ -106,6 +106,7 @@ public class Game {
 					targetSquare.setPiece(piece);
 					targetSquare.getSquareGraphic().add(piece.getPieceGraphic());
 					piece.incrementMoves();
+					turnWhite = !turnWhite;
 
 
 				}
@@ -114,7 +115,6 @@ public class Game {
 				targetSquare.getSquareGraphic().repaint();
 				startingSquare = null;
 				targetSquare = null;
-				turnWhite = !turnWhite;
 			}
 		}
 		else {
