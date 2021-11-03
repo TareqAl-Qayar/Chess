@@ -36,11 +36,11 @@ public class King extends Piece {
 			return false;
 		}
 		
-		if(Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate()) ==1 || Math.abs(targetSquare.getYcoordinate() - this.getSquare().getYcoordinate())==1) {
-			return false;
+		if((this.differenceInX(targetSquare)==1&&this.differenceInY(targetSquare)==1)||(this.differenceInX(targetSquare)+this.differenceInY(targetSquare)== 1)) {
+			return true;
 		}
 		
-		return true;
+		return false;
 	}
 
 }

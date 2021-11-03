@@ -207,4 +207,29 @@ public abstract class Piece {
 	public void setPieceGraphic(JPanel pieceGraphic) {
 		this.pieceGraphic = pieceGraphic;
 	}
+	
+	/**
+	 * Returns the absolute value of difference between this piece's x coordinate and the target square's.
+	 * @param targetSquare
+	 * @return
+	 */
+	public int differenceInX(Square targetSquare) {
+		int differenceInX;
+		differenceInX = Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate());
+	return differenceInX;
+	}
+	
+	
+	/**
+	 * Returns the absolute value of difference between this piece's y coordinate and the target square's.
+	 * @param targetSquare
+	 * @return
+	 */
+	public int differenceInY(Square targetSquare) {
+		int differenceInY;
+		differenceInY = Math.abs(targetSquare.getYcoordinate()-this.getSquare().getYcoordinate());
+		return differenceInY;
+	}
+	
+	
 }

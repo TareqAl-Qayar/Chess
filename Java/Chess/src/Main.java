@@ -13,11 +13,9 @@ public class Main {
 	// TODO protecting the king after check.
 	// TODO not moving a piece pinned to the king.
 	// TODO isReachable in Square class.
-	// TODO finish legalMove() for King
 	// TODO implement castling 
 	// TODO implement en passant.
 	// TODO implement pawn promotion.
-	// TODO implement turns and game starting with white to move.
 	// TODO create the graphic of the object in its constructor and change the graphic method to private and change the references to getGraphic().
 	// TODO change red colour so that it isn't as strong.
 	// TODO create small methods to house long recurring/functionalities.(Clean up)
