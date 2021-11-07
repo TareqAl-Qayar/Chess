@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 
 /**
  * 
@@ -22,6 +23,7 @@ public class Game {
 	private static Square targetSquare;
 	private static GameWindow window;
 	private static boolean turnWhite;
+	private static LinkedList<Move> moves = new LinkedList<Move>();
 
 	public Game() {
 		Board board = new Board();
@@ -78,8 +80,8 @@ public class Game {
 		// TODO
 	}
 
-	private void logMove() {
-		//TODO
+	private static void logMove() {
+		moves.add(new Move(startingSquare,targetSquare));
 	}
 
 	// TODO check if square coordinates are not valid (off the board).
@@ -93,7 +95,7 @@ public class Game {
 				Piece piece = startingSquare.getPiece();
 				if (piece.legalMove(targetSquare)) {
 					if (targetSquare.isOccupied()) {
-						capturePiece();
+						capturePiece(targetSquare);
 					}
 
 					startingSquare.setOccupied(false);
@@ -107,10 +109,9 @@ public class Game {
 					targetSquare.getSquareGraphic().add(piece.getPieceGraphic());
 					piece.incrementMoves();
 					turnWhite = !turnWhite;
-
-
+					logMove();
 				}
-				startingSquare.repaintSquare();
+				startingSquare.resetColour();
 				startingSquare.getSquareGraphic().repaint();
 				targetSquare.getSquareGraphic().repaint();
 				startingSquare = null;
@@ -119,10 +120,11 @@ public class Game {
 		}
 		else {
 			outputMessage("Move not possible.");
-			startingSquare.repaintSquare();
+			startingSquare.resetColour();
 			startingSquare=null;
 			targetSquare=null;
 		}
+		System.out.println(moves);
 	}
 	/**
 	 * is called when the targetSquare is Occupied by a piece of the opposite colour, frees
@@ -130,10 +132,13 @@ public class Game {
 	 * depending on its colour.
 	 * @param targetSquare on which the piece to be captured is.
 	 */
-	public static void capturePiece() {
+	public static void capturePiece(Square targetSquare) {
 		Piece targetPiece = targetSquare.getPiece();
 		targetPiece.setCaptured(true);
 		targetSquare.getSquareGraphic().remove(targetPiece.getPieceGraphic());
+		targetSquare.getSquareGraphic().repaint();
+		targetSquare.setOccupied(false);
+		targetSquare.setPiece(null);
 		if(targetPiece.getColour()==Colour.White) {
 			targetPiece.setSquare(GameWindow.getBinBlack());
 			GameWindow.getBinBlack().addPiece(targetPiece);
@@ -468,6 +473,74 @@ public class Game {
 	 */
 	public void setQueenBlack(Queen queenBlack) {
 		this.queenBlack = queenBlack;
+	}
+
+
+	/**
+	 * @return the startingSquare
+	 */
+	public static Square getStartingSquare() {
+		return startingSquare;
+	}
+
+
+	/**
+	 * @param startingSquare the startingSquare to set
+	 */
+	public static void setStartingSquare(Square startingSquare) {
+		Game.startingSquare = startingSquare;
+	}
+
+
+	/**
+	 * @return the window
+	 */
+	public static GameWindow getWindow() {
+		return window;
+	}
+
+
+	/**
+	 * @param window the window to set
+	 */
+	public static void setWindow(GameWindow window) {
+		Game.window = window;
+	}
+
+
+	/**
+	 * @return the turnWhite
+	 */
+	public static boolean isTurnWhite() {
+		return turnWhite;
+	}
+
+
+	/**
+	 * @param turnWhite the turnWhite to set
+	 */
+	public static void setTurnWhite(boolean turnWhite) {
+		Game.turnWhite = turnWhite;
+	}
+
+
+	/**
+	 * @return the moves
+	 */
+	public static LinkedList<Move> getMoves() {
+		return moves;
+	}
+
+
+	/**
+	 * @param moves the moves to set
+	 */
+	public static void setMoves(LinkedList<Move> moves) {
+		Game.moves = moves;
+	}
+	
+	public static Move getLastMove() {
+		return moves.getLast();
 	}
 
 }

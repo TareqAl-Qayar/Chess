@@ -118,7 +118,7 @@ public class Square implements Reachable , ActionListener {
 	 *
 	 */
 	public String toString() {
-		return (char)(xcoordinate + 96)+""+ycoordinate+ " " + colour.toString() + " " + isOccupied() + " ";//TODO + piece.toString() with nullPointerException.
+		return (char)(xcoordinate + 96)+""+ycoordinate; //+ " " + colour.toString() + " " + isOccupied() + " ";//TODO + piece.toString() with nullPointerException.
 
 	}
 
@@ -202,7 +202,7 @@ public class Square implements Reachable , ActionListener {
 	}
 
 
-	public void repaintSquare() {
+	public void resetColour() {
 		squareGraphic.setBackground(colour.getSquareColor());
 	}
 

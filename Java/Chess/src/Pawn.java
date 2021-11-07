@@ -54,12 +54,19 @@ public class Pawn extends Piece {
 				return true;
 			}
 		}
-		
-		// TODO fix this, it is in the abstract class now.
+
 		//Capturing 
 
 		if((targetSquare.isOccupied()&&targetSquare.getPiece().getColour()!=this.getColour() && targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()+1 )&& (Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate())==1)){
 			return true;
+		}
+
+		//en passant
+		if((this.getSquare().getYcoordinate()==5)&&(!targetSquare.isOccupied())&&(this.differenceInX(targetSquare)==1 && this.differenceInY(targetSquare)==1)) {
+			if((Game.getLastMove().getStartingSquare().getYcoordinate()==targetSquare.getYcoordinate()+1)&&(Game.getLastMove().getTargetSquare().getYcoordinate()==targetSquare.getYcoordinate()-1)&&(targetSquare.getXcoordinate()==Game.getLastMove().getStartingSquare().getXcoordinate())) {
+				Game.capturePiece(Board.getSquare(Game.getLastMove().getTargetSquare().getXcoordinate(), Game.getLastMove().getTargetSquare().getYcoordinate()));
+				return true;
+			}
 		}
 		return false;
 	}
@@ -85,6 +92,15 @@ public class Pawn extends Piece {
 
 		if((targetSquare.isOccupied()&&targetSquare.getPiece().getColour()!=this.getColour()  && targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()-1) && (Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate())==1)){
 			return true;
+		}
+
+
+		//en passant
+		if((this.getSquare().getYcoordinate()==4)&&(!targetSquare.isOccupied())&&(this.differenceInX(targetSquare)==1 && this.differenceInY(targetSquare)==1)) {
+			if((Game.getLastMove().getStartingSquare().getYcoordinate()==targetSquare.getYcoordinate()-1)&&(Game.getLastMove().getTargetSquare().getYcoordinate()==targetSquare.getYcoordinate()+1)&&(targetSquare.getXcoordinate()==Game.getLastMove().getStartingSquare().getXcoordinate())) {
+				Game.capturePiece(Board.getSquare(Game.getLastMove().getTargetSquare().getXcoordinate(), Game.getLastMove().getTargetSquare().getYcoordinate()));
+				return true;
+			}
 		}
 		return false;
 	}
