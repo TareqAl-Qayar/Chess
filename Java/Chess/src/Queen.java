@@ -27,13 +27,13 @@ public class Queen extends Piece {
 			return false;
 		}
 
-		if(targetSquare.getXcoordinate() == this.getSquare().getXcoordinate() || targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()) {
+		if(targetSquare.getXcoordinate() == getXCoordinate() || targetSquare.getYcoordinate() == getYCoordinate()) {
 			if(isWayFreeParallel(targetSquare)) {
 				return true;
 			}
 		}
 
-		if(Math.abs(targetSquare.getXcoordinate() - this.getSquare().getXcoordinate()) == Math.abs(targetSquare.getYcoordinate() - this.getSquare().getYcoordinate())) {
+		if(Math.abs(targetSquare.getXcoordinate() - getXCoordinate()) == Math.abs(targetSquare.getYcoordinate() - getYCoordinate())) {
 			if(isWayFreeDiagonal(targetSquare)) {
 				return true;
 			}
@@ -49,18 +49,18 @@ public class Queen extends Piece {
 	 * @return true if there are no pieces on the squares between current and targetSquare, otherwise false.
 	 */
 	private boolean isWayFreeParallel(Square targetSquare) {
-		if(targetSquare.getXcoordinate() - this.getSquare().getXcoordinate() !=0) {
-			int start = Math.min(this.getSquare().getXcoordinate(), targetSquare.getXcoordinate());
-			int end = Math.max(this.getSquare().getXcoordinate(), targetSquare.getXcoordinate());
+		if(targetSquare.getXcoordinate() - getXCoordinate() !=0) {
+			int start = Math.min(getXCoordinate(), targetSquare.getXcoordinate());
+			int end = Math.max(getXCoordinate(), targetSquare.getXcoordinate());
 			for(int i = start+1 ; i < end; i++) {
 				if(Board.getSquare(i, targetSquare.getYcoordinate()).isOccupied()) {
 					return false;
 				}
 			}
 		}
-		if(targetSquare.getYcoordinate()-this.getSquare().getYcoordinate() !=0) {
-			int start = Math.min(this.getSquare().getYcoordinate(), targetSquare.getYcoordinate());
-			int end = Math.max(this.getSquare().getYcoordinate(), targetSquare.getYcoordinate());
+		if(targetSquare.getYcoordinate()-getYCoordinate() !=0) {
+			int start = Math.min(getYCoordinate(), targetSquare.getYcoordinate());
+			int end = Math.max(getYCoordinate(), targetSquare.getYcoordinate());
 			for(int i = start+1 ; i < end ; i ++) {
 				if(Board.getSquare(targetSquare.getXcoordinate(), i).isOccupied()) {
 					return false;
@@ -79,10 +79,10 @@ public class Queen extends Piece {
 	private boolean isWayFreeDiagonal(Square targetSquare) {
 		
 		// up and right.
-		if(targetSquare.getXcoordinate() > this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() > this.getSquare().getYcoordinate()) {
-			int yCounter = this.getSquare().getYcoordinate();
-			int xCounter = this.getSquare().getXcoordinate();
-			while ( xCounter < targetSquare.getXcoordinate()) {
+		if(targetSquare.getXcoordinate() > getXCoordinate() && targetSquare.getYcoordinate() > getYCoordinate()) {
+			int yCounter = getYCoordinate();
+			int xCounter = getXCoordinate();
+			while ( xCounter < targetSquare.getXcoordinate()-1) {
 				xCounter ++;
 				yCounter ++;
 				if(Board.getSquare(xCounter, yCounter).isOccupied()) {
@@ -92,10 +92,10 @@ public class Queen extends Piece {
 		}
 		
 		// up and left
-		if(targetSquare.getXcoordinate() < this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() > this.getSquare().getYcoordinate()) {
-			int yCounter = this.getSquare().getYcoordinate();
-			int xCounter = this.getSquare().getXcoordinate();
-			while ( xCounter > targetSquare.getXcoordinate()) {
+		if(targetSquare.getXcoordinate() < getXCoordinate() && targetSquare.getYcoordinate() > getYCoordinate()) {
+			int yCounter = getYCoordinate();
+			int xCounter = getXCoordinate();
+			while ( xCounter > targetSquare.getXcoordinate()+1) {
 				xCounter --;
 				yCounter ++;
 				if(Board.getSquare(xCounter, yCounter).isOccupied()) {
@@ -105,10 +105,10 @@ public class Queen extends Piece {
 		}
 		
 		// down and right
-		if(targetSquare.getXcoordinate() > this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() < this.getSquare().getYcoordinate()) {
-			int yCounter = this.getSquare().getYcoordinate();
-			int xCounter = this.getSquare().getXcoordinate();
-			while ( xCounter < targetSquare.getXcoordinate()) {
+		if(targetSquare.getXcoordinate() > getXCoordinate() && targetSquare.getYcoordinate() < getYCoordinate()) {
+			int yCounter = getYCoordinate();
+			int xCounter = getXCoordinate();
+			while ( xCounter < targetSquare.getXcoordinate()-1) {
 				xCounter ++;
 				yCounter --;
 				if(Board.getSquare(xCounter, yCounter).isOccupied()) {
@@ -118,10 +118,10 @@ public class Queen extends Piece {
 		}
 
 		// down and left.
-		if(targetSquare.getXcoordinate() < this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() < this.getSquare().getYcoordinate()) {
-			int yCounter = this.getSquare().getYcoordinate();
-			int xCounter = this.getSquare().getXcoordinate();
-			while ( xCounter > targetSquare.getXcoordinate()) {
+		if(targetSquare.getXcoordinate() < getXCoordinate() && targetSquare.getYcoordinate() < getYCoordinate()) {
+			int yCounter = getYCoordinate();
+			int xCounter = getXCoordinate();
+			while ( xCounter > targetSquare.getXcoordinate()+1) {
 				xCounter --;
 				yCounter --;
 				if(Board.getSquare(xCounter, yCounter).isOccupied()) {

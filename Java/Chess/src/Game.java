@@ -1,4 +1,6 @@
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 /**
  * 
@@ -18,6 +20,7 @@ public class Game {
 	private Bishop bishopWhiteDark,bishopWhiteLight,bishopBlackDark,bishopBlackLight;
 	private King kingWhite,kingBlack;
 	private Queen queenWhite,queenBlack;
+	private Set<Piece> whitePieces,blackPieces;
 
 	private static Square startingSquare;
 	private static Square targetSquare;
@@ -32,10 +35,45 @@ public class Game {
 		turnWhite=true;
 
 		window = new GameWindow(board);
-
-		//startingSquare = board.getSquare(4, 2);
-		//targetSquare = board.getSquare(4, 4);
-		//move();
+		
+		
+		setupPieceHashSets();
+		
+		//System.out.println();
+		
+	}
+	
+	/**
+	 * Initialises the sets whitePieces and blackPieces and adds all the piece objects to their corresponding set.
+	 */
+	private void setupPieceHashSets() {
+		whitePieces = new HashSet<Piece>();
+		blackPieces = new HashSet<Piece>();
+		
+		whitePieces.add(bishopWhiteDark);
+		whitePieces.add(bishopWhiteLight);
+		whitePieces.add(kingWhite);
+		whitePieces.add(knightWhiteB);
+		whitePieces.add(knightWhiteF);
+		whitePieces.add(queenWhite);
+		whitePieces.add(rookWhiteA);
+		whitePieces.add(rookWhiteH);
+		for(int i = 0 ; i<pawnsWhite.length;i++) {
+			whitePieces.add(pawnsWhite[i]);
+		}
+		
+		blackPieces.add(bishopBlackDark);
+		blackPieces.add(bishopBlackLight);
+		blackPieces.add(kingBlack);
+		blackPieces.add(knightBlackB);
+		blackPieces.add(knightBlackF);
+		blackPieces.add(queenBlack);
+		blackPieces.add(rookBlackA);
+		blackPieces.add(rookWhiteH);
+		for(int i = 0 ; i<pawnsBlack.length;i++) {
+			blackPieces.add(pawnsBlack[i]);
+		}
+		
 	}
 
 
@@ -538,7 +576,7 @@ public class Game {
 	public static void setMoves(LinkedList<Move> moves) {
 		Game.moves = moves;
 	}
-	
+
 	public static Move getLastMove() {
 		return moves.getLast();
 	}

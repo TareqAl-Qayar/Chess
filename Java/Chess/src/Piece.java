@@ -231,5 +231,21 @@ public abstract class Piece {
 		return differenceInY;
 	}
 	
+	/**
+	 * 
+	 * @return the x coordinate of this piece object on the board, returns 0 if piece is captured (in bin).
+	 */
+	public int getXCoordinate() {
+		return this.getSquare().getXcoordinate();
+	}
+	
+	/**
+	 * 
+	 * @return the y coordinate of this piece object on the board, returns 0 if piece is captured (in bin).
+	 */
+	public int getYCoordinate() {
+		return this.getSquare().getYcoordinate();
+	}
+	
 	
 }

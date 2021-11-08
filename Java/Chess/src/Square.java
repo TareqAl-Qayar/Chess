@@ -173,7 +173,7 @@ public class Square implements Reachable , ActionListener {
 					Game.setStaringSquare(square);
 					//Game.outputMessage(square.getXcoordinate()+""+square.getYcoordinate());
 					System.out.println(square.toString());
-					square.getSquareGraphic().setBackground(Color.red);
+					square.getSquareGraphic().setBackground(new Color(222, 88, 40));
 				}
 				else {
 

@@ -46,23 +46,23 @@ public class Pawn extends Piece {
 		//Forward move
 		if(targetSquare.isOccupied() == false) {
 			//One square forward
-			if((targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()+1)&&(targetSquare.getXcoordinate()==this.getSquare().getXcoordinate())) {
+			if((targetSquare.getYcoordinate() == getYCoordinate()+1)&&(targetSquare.getXcoordinate()==getXCoordinate())) {
 				return true;
 			}
 			//First move 2 Squares forward
-			if((targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()+2 && this.getSquare().getYcoordinate() ==2&&(targetSquare.getXcoordinate()==this.getSquare().getXcoordinate()))) {
+			if((targetSquare.getYcoordinate() == getYCoordinate()+2 && getYCoordinate() ==2&&(targetSquare.getXcoordinate()==getXCoordinate()))) {
 				return true;
 			}
 		}
 
 		//Capturing 
 
-		if((targetSquare.isOccupied()&&targetSquare.getPiece().getColour()!=this.getColour() && targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()+1 )&& (Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate())==1)){
+		if((targetSquare.isOccupied()&&targetSquare.getPiece().getColour()!=this.getColour() && targetSquare.getYcoordinate() == getYCoordinate()+1 )&& (Math.abs(targetSquare.getXcoordinate()-getXCoordinate())==1)){
 			return true;
 		}
 
 		//en passant
-		if((this.getSquare().getYcoordinate()==5)&&(!targetSquare.isOccupied())&&(this.differenceInX(targetSquare)==1 && this.differenceInY(targetSquare)==1)) {
+		if((getYCoordinate()==5)&&(!targetSquare.isOccupied())&&(this.differenceInX(targetSquare)==1 && this.differenceInY(targetSquare)==1)) {
 			if((Game.getLastMove().getStartingSquare().getYcoordinate()==targetSquare.getYcoordinate()+1)&&(Game.getLastMove().getTargetSquare().getYcoordinate()==targetSquare.getYcoordinate()-1)&&(targetSquare.getXcoordinate()==Game.getLastMove().getStartingSquare().getXcoordinate())) {
 				Game.capturePiece(Board.getSquare(Game.getLastMove().getTargetSquare().getXcoordinate(), Game.getLastMove().getTargetSquare().getYcoordinate()));
 				return true;
@@ -79,24 +79,24 @@ public class Pawn extends Piece {
 		//Forward move
 		if(targetSquare.isOccupied() == false) {
 			//One square forward
-			if(targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()-1&&(targetSquare.getXcoordinate()==this.getSquare().getXcoordinate())) {
+			if(targetSquare.getYcoordinate() == getYCoordinate()-1&&(targetSquare.getXcoordinate()==getXCoordinate())) {
 				return true;
 			}
 			//First move 2 Squares forward
-			if((targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()-2 && this.getSquare().getYcoordinate() ==7)&&(targetSquare.getXcoordinate()==this.getSquare().getXcoordinate())) {
+			if((targetSquare.getYcoordinate() == getYCoordinate()-2 && getYCoordinate() ==7)&&(targetSquare.getXcoordinate()==getXCoordinate())) {
 				return true;
 			}
 		}
 
 		//Capturing 
 
-		if((targetSquare.isOccupied()&&targetSquare.getPiece().getColour()!=this.getColour()  && targetSquare.getYcoordinate() == this.getSquare().getYcoordinate()-1) && (Math.abs(targetSquare.getXcoordinate()-this.getSquare().getXcoordinate())==1)){
+		if((targetSquare.isOccupied()&&targetSquare.getPiece().getColour()!=this.getColour()  && targetSquare.getYcoordinate() == getYCoordinate()-1) && (Math.abs(targetSquare.getXcoordinate()-getXCoordinate())==1)){
 			return true;
 		}
 
 
 		//en passant
-		if((this.getSquare().getYcoordinate()==4)&&(!targetSquare.isOccupied())&&(this.differenceInX(targetSquare)==1 && this.differenceInY(targetSquare)==1)) {
+		if((getYCoordinate()==4)&&(!targetSquare.isOccupied())&&(this.differenceInX(targetSquare)==1 && this.differenceInY(targetSquare)==1)) {
 			if((Game.getLastMove().getStartingSquare().getYcoordinate()==targetSquare.getYcoordinate()-1)&&(Game.getLastMove().getTargetSquare().getYcoordinate()==targetSquare.getYcoordinate()+1)&&(targetSquare.getXcoordinate()==Game.getLastMove().getStartingSquare().getXcoordinate())) {
 				Game.capturePiece(Board.getSquare(Game.getLastMove().getTargetSquare().getXcoordinate(), Game.getLastMove().getTargetSquare().getYcoordinate()));
 				return true;

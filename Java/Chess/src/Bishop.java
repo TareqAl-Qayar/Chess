@@ -28,7 +28,7 @@ public class Bishop extends Piece {
 			return false;
 		}
 		// to check if it is on the same diagonal.
-		if(Math.abs(targetSquare.getXcoordinate() - this.getSquare().getXcoordinate()) != Math.abs(targetSquare.getYcoordinate() - this.getSquare().getYcoordinate())) {
+		if(this.differenceInX(targetSquare) != this.differenceInY(targetSquare)) {
 			return false;
 		}
 		//check if its blocked by another piece of the same colour.
@@ -47,10 +47,10 @@ public class Bishop extends Piece {
 	public boolean isWayFree(Square targetSquare) {
 
 		// up and right.
-		if(targetSquare.getXcoordinate() > this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() > this.getSquare().getYcoordinate()) {
-			int yCounter = this.getSquare().getYcoordinate();
-			int xCounter = this.getSquare().getXcoordinate();
-			while ( xCounter < targetSquare.getXcoordinate()) {
+		if(targetSquare.getXcoordinate() > getXCoordinate() && targetSquare.getYcoordinate() > getYCoordinate()) {
+			int yCounter = getYCoordinate();
+			int xCounter = getXCoordinate();
+			while ( xCounter < targetSquare.getXcoordinate()-1) {
 				xCounter ++;
 				yCounter ++;
 				if(Board.getSquare(xCounter, yCounter).isOccupied()) {
@@ -60,10 +60,10 @@ public class Bishop extends Piece {
 		}
 
 		// up and left
-		if(targetSquare.getXcoordinate() < this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() > this.getSquare().getYcoordinate()) {
-			int yCounter = this.getSquare().getYcoordinate();
-			int xCounter = this.getSquare().getXcoordinate();
-			while ( xCounter > targetSquare.getXcoordinate()) {
+		if(targetSquare.getXcoordinate() < getXCoordinate() && targetSquare.getYcoordinate() > getYCoordinate()) {
+			int yCounter = getYCoordinate();
+			int xCounter = getXCoordinate();
+			while ( xCounter > targetSquare.getXcoordinate()+1) {
 				xCounter --;
 				yCounter ++;
 				if(Board.getSquare(xCounter, yCounter).isOccupied()) {
@@ -74,10 +74,10 @@ public class Bishop extends Piece {
 
 
 		// down and right
-		if(targetSquare.getXcoordinate() > this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() < this.getSquare().getYcoordinate()) {
-			int yCounter = this.getSquare().getYcoordinate();
-			int xCounter = this.getSquare().getXcoordinate();
-			while ( xCounter < targetSquare.getXcoordinate()) {
+		if(targetSquare.getXcoordinate() > getXCoordinate() && targetSquare.getYcoordinate() < getYCoordinate()) {
+			int yCounter = getYCoordinate();
+			int xCounter = getXCoordinate();
+			while ( xCounter < targetSquare.getXcoordinate()-1) {
 				xCounter ++;
 				yCounter --;
 				if(Board.getSquare(xCounter, yCounter).isOccupied()) {
@@ -87,10 +87,10 @@ public class Bishop extends Piece {
 		}
 
 		// down and left.
-		if(targetSquare.getXcoordinate() < this.getSquare().getXcoordinate() && targetSquare.getYcoordinate() < this.getSquare().getYcoordinate()) {
-			int yCounter = this.getSquare().getYcoordinate();
-			int xCounter = this.getSquare().getXcoordinate();
-			while ( xCounter > targetSquare.getXcoordinate()) {
+		if(targetSquare.getXcoordinate() < getXCoordinate() && targetSquare.getYcoordinate() < getYCoordinate()) {
+			int yCounter = getYCoordinate();
+			int xCounter = getXCoordinate();
+			while ( xCounter > targetSquare.getXcoordinate()+1) {
 				xCounter --;
 				yCounter --;
 				if(Board.getSquare(xCounter, yCounter).isOccupied()) {

@@ -2,6 +2,13 @@
 // A turn is 2 moves, one for white and the other for black.
 // A move is 4 characters in the form "d4e6".
 
+/**
+ * 
+ * @author Tareq Al-Qayar
+ * @version 1.0
+ * @since 08/11/2021
+ *
+ */
 public class Move {
 	
 	private String move;

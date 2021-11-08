@@ -14,11 +14,11 @@ public class Main {
 	// TODO not moving a piece pinned to the king.
 	// TODO isReachable in Square class.
 	// TODO implement castling 
-	// TODO implement en passant.
 	// TODO implement pawn promotion.
 	// TODO create the graphic of the object in its constructor and change the graphic method to private and change the references to getGraphic().
-	// TODO change red colour so that it isn't as strong.
 	// TODO create small methods to house long recurring/functionalities.(Clean up)
+	// TODO use differenceInX/Y method to clean up the long bits of code.
+	// TODO change colours of last 2 used squares to indicate last move. (colour blue)
 	public static void main(String[] args) {
 		System.out.println("Test");
 
