@@ -1,7 +1,9 @@
 import java.awt.Dimension;
 import java.util.HashSet;
 import java.util.Set;
+import java.awt.*;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 /**
@@ -32,6 +34,7 @@ public class Bin extends Square {
 		binGraphic = new JPanel();
 		binGraphic.setPreferredSize(new Dimension(200,400));
 		binGraphic.setBackground(colour.getBinColor());
+		binGraphic.setLayout(new BoxLayout(binGraphic, BoxLayout.Y_AXIS));
 
 	}
 	
@@ -44,6 +47,7 @@ public class Bin extends Square {
 		pieces.add(piece);
 		//TODO add to the graphic
 		binGraphic.add(piece.getPieceGraphic());
+		binGraphic.repaint();
 	}
 
 

@@ -116,4 +116,49 @@ public class Pawn extends Piece {
 		return null;
 	}
 
+
+
+	@Override
+	public void findAttackedSquares() {
+		getAttackedSquares().clear();
+		if(getYCoordinate()<8&& getYCoordinate()>1){
+			if(getColour()==Colour.Black) {
+				if(this.getXCoordinate()<8 && this.getXCoordinate()>1) {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()+1, getYCoordinate()-1));
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()-1, getYCoordinate()-1));
+				}
+				if(getXCoordinate()==1) {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()+1, getYCoordinate()-1));
+				}
+				else {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()-1, getYCoordinate()-1));
+				}
+			}
+			if(getColour()==Colour.White) {
+				if(this.getXCoordinate()<8 && this.getXCoordinate()>1) {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()+1, getYCoordinate()+1));
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()-1, getYCoordinate()+1));
+				}
+				if(getXCoordinate()==1) {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()+1, getYCoordinate()+1));
+				}
+				else {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()-1, getYCoordinate()+1));
+				}
+			}
+
+		}
+
+	}
+
+
+
+	@Override
+	public String toUnicode() {
+		if(getColour()==Colour.Black) {
+			return "♟";
+		}
+		return "♙";
+	}
+
 }

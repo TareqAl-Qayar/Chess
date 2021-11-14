@@ -144,7 +144,7 @@ public class Game {
 					piece.setSquare(targetSquare);
 					targetSquare.setPiece(piece);
 					targetSquare.setPiece(piece);
-					targetSquare.getSquareGraphic().add(piece.getPieceGraphic());
+					targetSquare.addPieceGraphic(piece.getPieceGraphic());
 					piece.incrementMoves();
 					turnWhite = !turnWhite;
 					logMove();

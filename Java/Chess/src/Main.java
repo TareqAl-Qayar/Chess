@@ -19,8 +19,9 @@ public class Main {
 	// TODO create small methods to house long recurring/functionalities.(Clean up)
 	// TODO use differenceInX/Y method to clean up the long bits of code.
 	// TODO change colours of last 2 used squares to indicate last move. (colour blue)
+	// TODO flip board function.
 	public static void main(String[] args) {
-		System.out.println("Test");
+		System.out.println("♙");
 
 		Game g = new Game();
 		

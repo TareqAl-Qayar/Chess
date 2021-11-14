@@ -24,4 +24,20 @@ public class Knight extends Piece {
 		return false;
 	}
 
+
+	@Override
+	public void findAttackedSquares() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public String toUnicode() {
+		if(getColour()==Colour.Black) {
+			return "♞";
+		}
+		return "♘";
+	}
+
 }

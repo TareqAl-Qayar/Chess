@@ -101,4 +101,20 @@ public class Bishop extends Piece {
 		return true;
 	}
 
+
+	@Override
+	public void findAttackedSquares() {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public String toUnicode() {
+		if(getColour()==Colour.Black) {
+			return "♝";
+		}
+		return "♗";
+	}
+
 }

@@ -1,3 +1,15 @@
+import java.awt.*;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -16,15 +28,9 @@ public abstract class Piece {
 	boolean captured;
 	private Square square;
 	private int moves;
+	private Set<Square> attackedSquares;
 
 	private JPanel pieceGraphic;
-
-	//Array of 2 int values first for x direction and second for y direction.
-	//int move[]= new int[2];
-	// maybe class MakeMove
-
-
-
 
 
 
@@ -36,31 +42,15 @@ public abstract class Piece {
 		this.moves = 0;
 		square.setOccupied(true);
 		square.setPiece(this);
+		attackedSquares = new HashSet<Square>();
 	}
+	
+	/**
+	 * Finds the squares attacked by this piece and adds them to the attackedSquares set after every turn. Clears the set every time it is called.
+	 */
+	public abstract void findAttackedSquares();
 
 	
-// MOVED TO GAME CLASS!
-//	public void move(Square targetSquare) {
-//		if(this.legalMove(targetSquare)) {
-//			if(targetSquare.isOccupied()){
-//				capturePiece(targetSquare);
-//			}
-//			
-//			getSquare().setOccupied(false);
-//			getSquare().setPiece(null);
-//			getSquare().getSquareGraphic().remove(pieceGraphic);;
-//			
-//			
-//			setSquare(targetSquare);
-//			targetSquare.setPiece(this);
-//			targetSquare.setOccupied(true);
-//			targetSquare.getSquareGraphic().add(pieceGraphic);
-//			incrementMoves();
-//		}
-//		else {
-//			System.out.println("Move not legal");
-//		}
-//	}
 
 
 
@@ -72,30 +62,30 @@ public abstract class Piece {
 	public abstract boolean legalMove(Square targetSquare);
 
 	
-// MOVED TO GAME CLASS!
-//	public void capturePiece(Square targetSquare) {
-//		Piece targetPiece = targetSquare.getPiece();
-//		targetPiece.setCaptured(true);
-//		targetSquare.getSquareGraphic().remove(targetPiece.getPieceGraphic());
-//		if (targetPiece.getColour()==Colour.White) {
-//			targetPiece.setSquare(GameWindow.getBinBlack());
-//			GameWindow.getBinBlack().addPiece(targetPiece);
-//		} 
-//		else {
-//			targetPiece.setSquare(GameWindow.getBinWhite());
-//			GameWindow.getBinWhite().addPiece(targetPiece);
-//
-//		}
-//
-//	}
 
 
 	// TODO maybe use JButton.
 	// TODO use transparent background for pictures of pieces.
 	public JPanel pieceGraphic() {
+//		Icon imageIcon = new ImageIcon(("Assets/Pawn b.png"));
+//		Image image = ((ImageIcon) imageIcon).getImage();
+//		Image newimg = image.getScaledInstance(50,50,java.awt.Image.SCALE_SMOOTH);
+//		imageIcon = new ImageIcon(newimg);
+//		JLabel imageLabel = new JLabel((imageIcon));
+//		imageLabel.setOpaque(true);
+//		imageLabel.setLayout(new BorderLayout());
 		pieceGraphic = new JPanel();
-		// TODO change to an actual picture.
-		pieceGraphic.add(new JLabel(this.toString()));
+		pieceGraphic.setOpaque(false);
+		pieceGraphic.repaint();
+		
+		JLabel label = new JLabel(this.toUnicode());
+		label.setFont(new Font("Serif", Font.PLAIN, 50));
+		label.setForeground(Color.black);
+		label.setOpaque(false);
+		label.repaint();
+		
+		pieceGraphic.add(label);
+		
 		return pieceGraphic;
 	}
 
@@ -170,6 +160,8 @@ public abstract class Piece {
 	public String toString() {
 		return this.type.toString() + " " + this.colour.toString();
 	}
+	
+	public abstract String toUnicode();
 
 
 	/**
@@ -245,6 +237,20 @@ public abstract class Piece {
 	 */
 	public int getYCoordinate() {
 		return this.getSquare().getYcoordinate();
+	}
+
+	/**
+	 * @return the attackedSquares
+	 */
+	public Set<Square> getAttackedSquares() {
+		return attackedSquares;
+	}
+
+	/**
+	 * @param attackedSquares the attackedSquares to set
+	 */
+	public void setAttackedSquares(Set<Square> attackedSquares) {
+		this.attackedSquares = attackedSquares;
 	}
 	
 	

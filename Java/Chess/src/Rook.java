@@ -59,4 +59,34 @@ public class Rook extends Piece {
 		return true;
 	}
 
+
+
+	@Override
+	public void findAttackedSquares() {
+		getAttackedSquares().clear();
+		
+		//TODO can be optimised.
+		for(int i = 1; i<=8;i++) {
+			Square currentSquareX= Board.getSquare(i, getYCoordinate());
+			Square currentSquareY=Board.getSquare(getXCoordinate(), i);
+			if(isWayFree(currentSquareX)&&(!currentSquareX.isOccupied()||currentSquareX.OccupiedByOppositeColour(getColour()))) {
+				getAttackedSquares().add(currentSquareX);
+			}
+			if(isWayFree(currentSquareY)&&(!currentSquareY.isOccupied()||currentSquareY.OccupiedByOppositeColour(getColour()))) {
+				getAttackedSquares().add(currentSquareY);
+			}
+		}
+		
+	}
+
+
+
+	@Override
+	public String toUnicode() {
+		if(getColour()==Colour.Black) {
+			return "♜";
+		}
+		return "♖";
+	}
+
 }

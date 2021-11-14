@@ -1,8 +1,13 @@
 
 import java.awt.*;
 import java.awt.event.*;
+
+import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
+
 import java.awt.Font;
 
 /**
@@ -75,6 +80,15 @@ public class Square implements Reachable , ActionListener {
 	 */
 	public boolean isOccupied() {
 		return occupied;
+	}
+	
+	public boolean OccupiedByOppositeColour(Colour colour) {
+		if(isOccupied()) {
+			if(getPiece().getColour()!=colour) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -153,22 +167,32 @@ public class Square implements Reachable , ActionListener {
 		squareGraphic = new JPanel();
 		squareGraphic.setPreferredSize(new Dimension(100,100));
 		squareGraphic.setBackground(colour.getSquareColor());
-		//square.setLayout(null);
+		//squareGraphic.setLayout(new GroupLayout(squareGraphic));
+		squareGraphic.setLayout(null);
+		
+		if(getXcoordinate()==1) {
+			JLabel name = new JLabel("" + ycoordinate);
+			name.setOpaque(false);
+			name.setForeground(Color.black);
+			name.setFont(new Font("test",1,16));
 
+			squareGraphic.add(name);
+			name.setBounds(5,0,20,20);
+		}
+		if(getYcoordinate()==1) {
+			JLabel name = new JLabel((char)(xcoordinate + 96) + "");
+			name.setOpaque(false);
+			name.setForeground(Color.black);
+			name.setFont(new Font("test",1,16));
 
-		JLabel name = new JLabel((char)(xcoordinate + 96) + "" + ycoordinate);
-
-		name.setBackground(colour.getSquareColor());
-		name.setForeground(Color.black);
-		name.setFont(new Font("test",1,16));
-
-		squareGraphic.add(name);
-		name.setBounds(0,160,60,40);
-
+			squareGraphic.add(name);
+			name.setBounds(85,75,20,20);
+		}
+		
 		squareGraphic.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				squareGraphic.repaint();
 				if (Game.getStaringSquare()==null&& square.isOccupied()) {
 					Game.setStaringSquare(square);
 					//Game.outputMessage(square.getXcoordinate()+""+square.getYcoordinate());
@@ -188,19 +212,19 @@ public class Square implements Reachable , ActionListener {
 			}
 		});
 
-
-
-
 		if(isOccupied()) {
 			squareGraphic.add(piece.pieceGraphic());
+			addPieceGraphic(piece.getPieceGraphic());
+			squareGraphic.repaint();
 		}
-
 		return squareGraphic;
-
-
-
 	}
 
+	public void addPieceGraphic(JPanel pieceGraphic) {
+		getSquareGraphic().add(pieceGraphic);
+		pieceGraphic.setBounds(0, 10, 100, 100);
+		getSquareGraphic().repaint();
+	}
 
 	public void resetColour() {
 		squareGraphic.setBackground(colour.getSquareColor());
