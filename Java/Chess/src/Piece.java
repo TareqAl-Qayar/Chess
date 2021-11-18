@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -25,10 +27,10 @@ public abstract class Piece {
 
 	private PieceType type;
 	private Colour colour;
-	boolean captured;
+	private boolean captured;
 	private Square square;
 	private int moves;
-	private Set<Square> attackedSquares;
+	private LinkedList<Square> attackedSquares;
 
 	private JPanel pieceGraphic;
 
@@ -42,7 +44,7 @@ public abstract class Piece {
 		this.moves = 0;
 		square.setOccupied(true);
 		square.setPiece(this);
-		attackedSquares = new HashSet<Square>();
+		attackedSquares = new LinkedList<Square>();
 	}
 	
 	/**
@@ -90,6 +92,61 @@ public abstract class Piece {
 	}
 
 
+	protected void attackedSquaresLoopDiagonal(int xCap, int yCap, int xSign , int ySign) {
+		int yIndex = this.getYCoordinate();
+		for(int i = this.getXCoordinate()+xSign; i!= xCap+xSign; i = i+xSign) {
+			yIndex   = yIndex + ySign;
+			if(yIndex== yCap + ySign) {
+				break;
+			}
+			if(Board.getSquare(i, yIndex).isBlocked(this)) {
+				break;
+			}
+			if(Board.getSquare(i, yIndex).OccupiedByOppositeColour(getColour())) {
+				getAttackedSquares().add(Board.getSquare(i, yIndex));
+				break;
+			}
+			getAttackedSquares().add(Board.getSquare(i, yIndex));
+		}
+	}
+	
+	/**
+	 * 
+	 * @param cap
+	 * @param sign
+	 * @param direction true for checking in x, false for checking i y.
+	 */
+	protected void attackedSquaresLoopParallel(int cap , int sign, boolean direction) {
+		int xIndex  =this.getXCoordinate();
+		int yIndex = this .getYCoordinate();
+		int xIncrement,yIncrement;
+		int i;
+		if(direction) {
+			xIncrement = sign;
+			yIncrement = 0;
+			i = this.getXCoordinate();
+		}
+		else {
+			xIncrement = 0;
+			yIncrement = sign; 
+			i = this.getYCoordinate();
+		}
+		while(i != cap) {
+			xIndex = xIndex + xIncrement;
+			yIndex = yIndex + yIncrement;
+			Square square = Board.getSquare(xIndex, yIndex);
+			if(square.isBlocked(this)) {
+				break;
+			}
+			if(square.OccupiedByOppositeColour(getColour())) {
+				getAttackedSquares().add(square);
+				break;
+			}
+			getAttackedSquares().add(square);
+			
+			i=i+sign;
+		}
+	}
 
 
 
@@ -185,6 +242,10 @@ public abstract class Piece {
 	public void incrementMoves() {
 		this.moves = this.moves + 1;
 	}
+	
+	public void decreaseMovesByOne() {
+		this.moves = this.moves-1;
+	}
 
 	/**
 	 * @return the pieceGraphic
@@ -242,15 +303,29 @@ public abstract class Piece {
 	/**
 	 * @return the attackedSquares
 	 */
-	public Set<Square> getAttackedSquares() {
+	public LinkedList<Square> getAttackedSquares() {
 		return attackedSquares;
 	}
 
 	/**
 	 * @param attackedSquares the attackedSquares to set
 	 */
-	public void setAttackedSquares(Set<Square> attackedSquares) {
+	public void setAttackedSquares(LinkedList<Square> attackedSquares) {
 		this.attackedSquares = attackedSquares;
+	}
+	
+	public String getAttackedSquaresString() {
+		String s="";
+		for(int i = 0 ; i<attackedSquares.size();i++) {
+			s = s + attackedSquares.get(i).toString();
+		}
+		return s;
+	}
+	public King getKing() {
+		if(this.colour == Colour.Black) {
+			return Game.getKingBlack();
+		}
+		else return Game.getKingWhite();
 	}
 	
 	

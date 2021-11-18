@@ -101,12 +101,19 @@ public class Bishop extends Piece {
 		return true;
 	}
 
+	
+	
 
 	@Override
 	public void findAttackedSquares() {
-		// TODO Auto-generated method stub
-
+		this.getAttackedSquares().clear();
+		attackedSquaresLoopDiagonal(8,8,1,1);
+		attackedSquaresLoopDiagonal(8,1,1,-1);
+		attackedSquaresLoopDiagonal(1,8,-1,1);
+		attackedSquaresLoopDiagonal(1,1,-1,-1);		
 	}
+	
+
 
 
 	@Override

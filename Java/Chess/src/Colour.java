@@ -49,4 +49,11 @@ public enum Colour {
 		return new Color(211, 219, 173);
 	}
 	
+	public Color getSquareBlue() {
+		if(this == Black) {
+			return new Color(41, 78, 138);
+		}
+		return new Color(69, 127, 222);
+	}
+	
 }

@@ -14,6 +14,7 @@ public class Move {
 	private String move;
 	private static char[] rows = {'a','b','c','d','e','f','g','h'};
 	private Square startingSquare, targetSquare;
+	private boolean isMoveCapture;
 
 	
 	public Move(String move) throws NotAMoveException {
@@ -26,10 +27,11 @@ public class Move {
 		}	
 	}
 	
-	public Move(Square startingSquare,Square targetSquare) {
+	public Move(Square startingSquare,Square targetSquare, boolean isMovecapture) {
 		this.move = startingSquare.toString() +targetSquare.toString();
 		this.setStartingSquare(startingSquare);
 		this.setTargetSquare(targetSquare);
+		this.setMoveCapture(isMovecapture);
 	}
 	
 	private boolean isAMove(String move) {
@@ -46,6 +48,8 @@ public class Move {
 		
 		return true;
 	}
+	
+	
 	
 	private boolean isAFile(char letter) {
 		for(int i = 0 ; i< rows.length ; i++) {
@@ -93,6 +97,20 @@ public class Move {
 	 */
 	public void setTargetSquare(Square targetSquare) {
 		this.targetSquare = targetSquare;
+	}
+
+	/**
+	 * @return the isMoveCapture
+	 */
+	public boolean isMoveCapture() {
+		return isMoveCapture;
+	}
+
+	/**
+	 * @param isMoveCapture the isMoveCapture to set
+	 */
+	public void setMoveCapture(boolean isMoveCapture) {
+		this.isMoveCapture = isMoveCapture;
 	}
 
 }

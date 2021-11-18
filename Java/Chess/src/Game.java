@@ -1,5 +1,7 @@
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,9 +20,11 @@ public class Game {
 	private Rook rookWhiteA,rookWhiteH,rookBlackA,rookBlackH;
 	private Knight knightWhiteB,knightWhiteF,knightBlackB,knightBlackF;
 	private Bishop bishopWhiteDark,bishopWhiteLight,bishopBlackDark,bishopBlackLight;
-	private King kingWhite,kingBlack;
+	private static King kingWhite, kingBlack;
 	private Queen queenWhite,queenBlack;
-	private Set<Piece> whitePieces,blackPieces;
+	private static Set<Piece> whitePieces;
+	private static Set<Piece> blackPieces;
+	private static List<Piece> capturedPieces;
 
 	private static Square startingSquare;
 	private static Square targetSquare;
@@ -28,28 +32,32 @@ public class Game {
 	private static boolean turnWhite;
 	private static LinkedList<Move> moves = new LinkedList<Move>();
 
+	private static Set<Square>attackedSquaresWhite,attackedSquaresBlack;
+
 	public Game() {
 		Board board = new Board();
-		setBoard();
+		setupBoard();
 		board.CreateBoardGraphic();
 		turnWhite=true;
 
 		window = new GameWindow(board);
-		
-		
+		attackedSquaresWhite = new HashSet<Square>();
+		attackedSquaresBlack = new HashSet<Square>();
+		capturedPieces = new LinkedList<Piece>();
 		setupPieceHashSets();
-		
+
 		//System.out.println();
-		
+
+
 	}
-	
+
 	/**
 	 * Initialises the sets whitePieces and blackPieces and adds all the piece objects to their corresponding set.
 	 */
 	private void setupPieceHashSets() {
 		whitePieces = new HashSet<Piece>();
 		blackPieces = new HashSet<Piece>();
-		
+
 		whitePieces.add(bishopWhiteDark);
 		whitePieces.add(bishopWhiteLight);
 		whitePieces.add(kingWhite);
@@ -61,7 +69,7 @@ public class Game {
 		for(int i = 0 ; i<pawnsWhite.length;i++) {
 			whitePieces.add(pawnsWhite[i]);
 		}
-		
+
 		blackPieces.add(bishopBlackDark);
 		blackPieces.add(bishopBlackLight);
 		blackPieces.add(kingBlack);
@@ -73,14 +81,14 @@ public class Game {
 		for(int i = 0 ; i<pawnsBlack.length;i++) {
 			blackPieces.add(pawnsBlack[i]);
 		}
-		
+
 	}
 
 
 	/**
 	 * Sets the board by creating the piece objects and placing them on the their initial squares.
 	 */
-	private void setBoard() {
+	private void setupBoard() {
 
 		for(int i = 1 ; i < 9 ; i++ ) {
 			pawnsWhite[i-1] = new Pawn(Colour.White, Board.getSquare(i, 2));
@@ -118,11 +126,10 @@ public class Game {
 		// TODO
 	}
 
-	private static void logMove() {
-		moves.add(new Move(startingSquare,targetSquare));
+	private static void logMove(boolean isMoveCapture) {
+		moves.add(new Move(startingSquare,targetSquare, isMoveCapture));
 	}
 
-	// TODO check if square coordinates are not valid (off the board).
 	// TODO have to protect after being checked
 	// TODO can't move if pinned to the king.
 	public static void move() {
@@ -130,28 +137,37 @@ public class Game {
 
 		if(turnWhite == startingSquare.getPiece().getColour().ColourToBoolean()) {
 			if (startingSquare.isOccupied()==true) {
+				// TODO fix this.... needs to be rearrange more logically to help implement king being attacked.
 				Piece piece = startingSquare.getPiece();
 				if (piece.legalMove(targetSquare)) {
+					boolean isMoveCapture = false;
+					if (!moves.isEmpty()) {
+						changeLastSquarestoOriginalColour();
+					}
 					if (targetSquare.isOccupied()) {
 						capturePiece(targetSquare);
+						isMoveCapture = true;
 					}
 
-					startingSquare.setOccupied(false);
-					startingSquare.setPiece(null);
-					startingSquare.getSquareGraphic().remove(piece.getPieceGraphic());
+					
 
-					targetSquare.setOccupied(true);
-					piece.setSquare(targetSquare);
-					targetSquare.setPiece(piece);
-					targetSquare.setPiece(piece);
-					targetSquare.addPieceGraphic(piece.getPieceGraphic());
-					piece.incrementMoves();
+					repostionPiece(startingSquare, targetSquare);
+
+					piece.incrementMoves(); 
 					turnWhite = !turnWhite;
-					logMove();
+					logMove(isMoveCapture);
+
+					findAttackedSquares();
+					if(isKingOnAttackedSquare(piece)) {
+						undoMove();
+					}
+					else {
+						changeLastSquaresToBlue();	
+					}
 				}
-				startingSquare.resetColour();
-				startingSquare.getSquareGraphic().repaint();
-				targetSquare.getSquareGraphic().repaint();
+				else {
+					startingSquare.resetColour();	
+				}		
 				startingSquare = null;
 				targetSquare = null;
 			}
@@ -162,8 +178,28 @@ public class Game {
 			startingSquare=null;
 			targetSquare=null;
 		}
-		System.out.println(moves);
 	}
+
+	/**
+	 * Repositions a piece from a square to another, does not check if the move is legal or not, does not increment moves for the piece.
+	 * @param startingSquare square on which the piece is.
+	 * @param targetSquare square onto which the piece is repositioned.
+	 */
+	private static void repostionPiece(Square startingSquare, Square targetSquare) {
+		Piece tempPiece = startingSquare.getPiece();
+		startingSquare.removePiece();
+		targetSquare.addPiece(tempPiece);		
+	}
+
+	/**
+	 * Checks if the king of piece is on a square that is attacked by an enemy piece.
+	 * @param piece
+	 * @return
+	 */
+	private static boolean isKingOnAttackedSquare(Piece piece) {
+		return getAttackedSquaresByOppositeColour(piece).contains(piece.getKing().getSquare());
+	}
+
 	/**
 	 * is called when the targetSquare is Occupied by a piece of the opposite colour, frees
 	 * the targetSquare and changes the square for the previous piece to binWhite or binBlack
@@ -173,6 +209,7 @@ public class Game {
 	public static void capturePiece(Square targetSquare) {
 		Piece targetPiece = targetSquare.getPiece();
 		targetPiece.setCaptured(true);
+		capturedPieces.add(targetPiece);
 		targetSquare.getSquareGraphic().remove(targetPiece.getPieceGraphic());
 		targetSquare.getSquareGraphic().repaint();
 		targetSquare.setOccupied(false);
@@ -192,6 +229,82 @@ public class Game {
 	public static void outputMessage(String text) {
 		window.getOutputField().setText(text);
 		System.out.println(text);
+	}
+
+	private static void findAttackedSquares() {
+		attackedSquaresWhite.clear();
+		attackedSquaresBlack.clear();
+		for(Piece piece: whitePieces) {
+			if(piece.isCaptured()==false) {
+				piece.findAttackedSquares();
+				try {
+					attackedSquaresWhite.addAll(piece.getAttackedSquares());
+				} catch (NullPointerException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		for(Piece piece: blackPieces) {
+			if(piece.isCaptured()==false) {
+				piece.findAttackedSquares();
+				attackedSquaresBlack.addAll(piece.getAttackedSquares());
+			}
+		}
+	}
+
+	public static Set<Square> getAttackedSquaresByOppositeColour(Piece piece){
+		if(piece.getColour() == Colour.Black) {
+			return attackedSquaresWhite;
+		}
+		return attackedSquaresBlack;
+	}
+
+
+
+	public static void undoMove() {
+		Square startingSquare = moves.getLast().getTargetSquare();
+		Square targetSquare = moves.getLast().getStartingSquare();
+		startingSquare.getPiece().decreaseMovesByOne();
+		repostionPiece(startingSquare, targetSquare);
+		changeLastSquarestoOriginalColour();
+		if(moves.get(moves.size()-1).isMoveCapture()) {
+			unCaptureLastPiece(startingSquare);
+		}
+		moves.removeLast();
+		turnWhite = !turnWhite;
+	}
+	
+	
+	private static void unCaptureLastPiece(Square targetSquare) {
+		Piece piece = capturedPieces.get(capturedPieces.size()-1);
+		piece.setCaptured(false);
+		targetSquare.addPiece(piece);
+		if(piece.getColour()==Colour.Black) {
+			GameWindow.getBinWhite().removePiece(piece);
+		}
+		else {
+			GameWindow.getBinBlack().removePiece(piece);
+		}
+	}
+
+	/**
+	 * Changes the last target and starting squares' colours to blue to indicate the last move.
+	 */
+	private static void changeLastSquaresToBlue() {
+
+		startingSquare.getSquareGraphic().setBackground(startingSquare.getColour().getSquareBlue());
+		targetSquare.getSquareGraphic().setBackground(targetSquare.getColour().getSquareBlue());
+	}
+
+
+	/**
+	 * Changes the colours of the squares of the previous move back to original, called before a new move is logged.
+	 */
+	private static void changeLastSquarestoOriginalColour() {
+		Square lastStartingSquare = moves.getLast().getStartingSquare();
+		Square lastTargetSquare = moves.getLast().getTargetSquare();
+		lastStartingSquare.resetColour();
+		lastTargetSquare.resetColour();
 	}
 
 	/**
@@ -453,7 +566,7 @@ public class Game {
 	/**
 	 * @return the kingWhite
 	 */
-	public King getKingWhite() {
+	public static King getKingWhite() {
 		return kingWhite;
 	}
 
@@ -469,7 +582,7 @@ public class Game {
 	/**
 	 * @return the kingBlack
 	 */
-	public King getKingBlack() {
+	public static King getKingBlack() {
 		return kingBlack;
 	}
 
@@ -579,6 +692,62 @@ public class Game {
 
 	public static Move getLastMove() {
 		return moves.getLast();
+	}
+
+	/**
+	 * @return the whitePieces
+	 */
+	public Set<Piece> getWhitePieces() {
+		return whitePieces;
+	}
+
+	/**
+	 * @param whitePieces the whitePieces to set
+	 */
+	public void setWhitePieces(Set<Piece> whitePieces) {
+		this.whitePieces = whitePieces;
+	}
+
+	/**
+	 * @return the blackPieces
+	 */
+	public Set<Piece> getBlackPieces() {
+		return blackPieces;
+	}
+
+	/**
+	 * @param blackPieces the blackPieces to set
+	 */
+	public void setBlackPieces(Set<Piece> blackPieces) {
+		this.blackPieces = blackPieces;
+	}
+
+	/**
+	 * @return the attackedSquaresWhite
+	 */
+	public static Set<Square> getAttackedSquaresWhite() {
+		return attackedSquaresWhite;
+	}
+
+	/**
+	 * @param attackedSquaresWhite the attackedSquaresWhite to set
+	 */
+	public static void setAttackedSquaresWhite(Set<Square> attackedSquaresWhite) {
+		Game.attackedSquaresWhite = attackedSquaresWhite;
+	}
+
+	/**
+	 * @return the attackedSquaresBlack
+	 */
+	public static Set<Square> getAttackedSquaresBlack() {
+		return attackedSquaresBlack;
+	}
+
+	/**
+	 * @param attackedSquaresBlack the attackedSquaresBlack to set
+	 */
+	public static void setAttackedSquaresBlack(Set<Square> attackedSquaresBlack) {
+		Game.attackedSquaresBlack = attackedSquaresBlack;
 	}
 
 }

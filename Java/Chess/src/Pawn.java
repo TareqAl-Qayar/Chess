@@ -51,7 +51,9 @@ public class Pawn extends Piece {
 			}
 			//First move 2 Squares forward
 			if((targetSquare.getYcoordinate() == getYCoordinate()+2 && getYCoordinate() ==2&&(targetSquare.getXcoordinate()==getXCoordinate()))) {
-				return true;
+				if (Board.getSquare(getXCoordinate(), getYCoordinate()+1).isOccupied()==false) {
+					return true;
+				}
 			}
 		}
 
@@ -84,7 +86,9 @@ public class Pawn extends Piece {
 			}
 			//First move 2 Squares forward
 			if((targetSquare.getYcoordinate() == getYCoordinate()-2 && getYCoordinate() ==7)&&(targetSquare.getXcoordinate()==getXCoordinate())) {
-				return true;
+				if (Board.getSquare(getXCoordinate(), getYCoordinate()-1).isOccupied()==false) {
+					return true;
+				}
 			}
 		}
 
@@ -120,6 +124,7 @@ public class Pawn extends Piece {
 
 	@Override
 	public void findAttackedSquares() {
+		// TODO fix not checking for blocked sqaures.
 		getAttackedSquares().clear();
 		if(getYCoordinate()<8&& getYCoordinate()>1){
 			if(getColour()==Colour.Black) {

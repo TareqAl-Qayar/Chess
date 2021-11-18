@@ -22,7 +22,7 @@ public class Rook extends Piece {
 		if(targetSquare.isBlocked(this)) {
 			return false;
 		}
-		
+
 		if(targetSquare.getXcoordinate() == getXCoordinate() || targetSquare.getYcoordinate() == getYCoordinate()) {
 			if(isWayFree(targetSquare)) {
 				return true;
@@ -64,21 +64,13 @@ public class Rook extends Piece {
 	@Override
 	public void findAttackedSquares() {
 		getAttackedSquares().clear();
-		
-		//TODO can be optimised.
-		for(int i = 1; i<=8;i++) {
-			Square currentSquareX= Board.getSquare(i, getYCoordinate());
-			Square currentSquareY=Board.getSquare(getXCoordinate(), i);
-			if(isWayFree(currentSquareX)&&(!currentSquareX.isOccupied()||currentSquareX.OccupiedByOppositeColour(getColour()))) {
-				getAttackedSquares().add(currentSquareX);
-			}
-			if(isWayFree(currentSquareY)&&(!currentSquareY.isOccupied()||currentSquareY.OccupiedByOppositeColour(getColour()))) {
-				getAttackedSquares().add(currentSquareY);
-			}
-		}
-		
+		attackedSquaresLoopParallel(8,1,true);
+		attackedSquaresLoopParallel(1,-1,true);
+		attackedSquaresLoopParallel(8,1,false);
+		attackedSquaresLoopParallel(1,-1,false);
 	}
-
+	
+	
 
 
 	@Override

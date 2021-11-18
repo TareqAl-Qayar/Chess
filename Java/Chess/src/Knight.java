@@ -27,7 +27,55 @@ public class Knight extends Piece {
 
 	@Override
 	public void findAttackedSquares() {
-		// TODO Auto-generated method stub
+		this.getAttackedSquares().clear();
+		if(this.getYCoordinate()+2<9) {
+			if(this.getXCoordinate()+1<9) {
+				if(Board.getSquare(getXCoordinate()+1, getYCoordinate()+2).isBlocked(this)==false) {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()+1, getYCoordinate()+2));
+				}
+			}
+			if(this.getXCoordinate()-1>0) {
+				if(Board.getSquare(getXCoordinate()-1, getYCoordinate()+2).isBlocked(this)==false) {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()-1, getYCoordinate()+2));
+				}
+			}
+		}
+		if(this.getYCoordinate()+1<9) {
+			if(this.getXCoordinate()+2<9) {
+				if(Board.getSquare(getXCoordinate()+2, getYCoordinate()+1).isBlocked(this)==false) {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()+2, getYCoordinate()+1));
+				}
+			}
+			if(this.getXCoordinate()-2>0) {
+				if(Board.getSquare(getXCoordinate()-2, getYCoordinate()+1).isBlocked(this)==false) {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()-2, getYCoordinate()+1));
+				}
+			}
+		}
+		if(this.getYCoordinate()-2>0) {
+			if(this.getXCoordinate()+1<9) {
+				if(Board.getSquare(getXCoordinate()+1, getYCoordinate()-2).isBlocked(this)==false) {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()+1, getYCoordinate()-2));
+				}
+			}
+			if(this.getXCoordinate()-1>0) {
+				if(Board.getSquare(getXCoordinate()-1, getYCoordinate()-2).isBlocked(this)==false) {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()-1, getYCoordinate()-2));
+				}
+			}
+		}
+		if(this.getYCoordinate()-1>0) {
+			if(this.getXCoordinate()+2<9) {
+				if(Board.getSquare(getXCoordinate()+2, getYCoordinate()-1).isBlocked(this)==false) {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()+2, getYCoordinate()-1));
+				}
+			}
+			if(this.getXCoordinate()-2>0) {
+				if(Board.getSquare(getXCoordinate()-2, getYCoordinate()-1).isBlocked(this)==false) {
+					getAttackedSquares().add(Board.getSquare(getXCoordinate()-2, getYCoordinate()-1));
+				}
+			}
+		}
 		
 	}
 

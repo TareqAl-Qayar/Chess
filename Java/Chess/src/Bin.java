@@ -1,5 +1,7 @@
 import java.awt.Dimension;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.Set;
 import java.awt.*;
 
@@ -15,7 +17,7 @@ import javax.swing.JPanel;
  */
 public class Bin extends Square {
 
-	private Set<Piece> pieces;
+	private LinkedList<Piece> pieces;
 	private JPanel binGraphic;
 
 
@@ -26,7 +28,7 @@ public class Bin extends Square {
 		super();
 		this.colour = colour;
 		binGraphic();
-		pieces = new HashSet<Piece>();
+		pieces = new LinkedList<Piece>();
 	}
 
 
@@ -45,8 +47,33 @@ public class Bin extends Square {
 	 */
 	public void addPiece(Piece piece) {
 		pieces.add(piece);
-		//TODO add to the graphic
 		binGraphic.add(piece.getPieceGraphic());
+		binGraphic.repaint();
+	}
+	
+	
+	/**
+	 * 
+	 * @return Piece that was added last to the bin.
+	 */
+	public Piece getLastPiece() {
+		return pieces.get(pieces.size()-1);
+	}
+	
+	public void removePiece(Piece piece) {
+		pieces.remove(piece);
+		binGraphic.remove(piece.getPieceGraphic());
+		binGraphic.repaint();
+	}
+	
+	
+	//TODO maybe this method is not needed so delete it ...?
+	/**
+	 * Removes last piece that was captured and put in this bin.
+	 */
+	public void removeLastPiece() {
+		Piece piece = getLastPiece();
+		binGraphic.remove(piece.getPieceGraphic());
 		binGraphic.repaint();
 	}
 
@@ -54,7 +81,7 @@ public class Bin extends Square {
 	/**
 	 * @return the pieces
 	 */
-	public Set<Piece> getPieces() {
+	public LinkedList<Piece> getPieces() {
 		return pieces;
 	}
 
@@ -62,7 +89,7 @@ public class Bin extends Square {
 	/**
 	 * @param pieces the pieces to set
 	 */
-	public void setPieces(Set<Piece> pieces) {
+	public void setPieces(LinkedList<Piece> pieces) {
 		this.pieces = pieces;
 	}
 	

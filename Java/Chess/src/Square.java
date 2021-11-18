@@ -17,7 +17,7 @@ import java.awt.Font;
  * @since 28/10/2021
  *
  */
-public class Square implements Reachable , ActionListener {
+public class Square implements  ActionListener {
 
 	private Colour colour;
 	private boolean occupied;
@@ -152,8 +152,23 @@ public class Square implements Reachable , ActionListener {
 	public void setPiece(Piece piece) {
 		this.piece = piece;
 	}
-
-
+	
+	
+	public void addPiece(Piece piece) {
+		setOccupied(true);
+		this.piece = piece;
+		piece.setSquare(this);
+		squareGraphic.add(piece.getPieceGraphic());
+		squareGraphic.repaint();
+	}
+	
+	public void removePiece() {
+		setOccupied(false);
+		squareGraphic.remove(piece.getPieceGraphic());
+		squareGraphic.repaint();
+		piece = null;
+	}
+	
 
 	public boolean isReachable() {
 		// TODO Auto-generated method stub

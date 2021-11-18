@@ -135,9 +135,20 @@ public class Queen extends Piece {
 
 	@Override
 	public void findAttackedSquares() {
-		// TODO Auto-generated method stub
+		this.getAttackedSquares().clear();
+		attackedSquaresLoopParallel(8,1,true);
+		attackedSquaresLoopParallel(1,-1,true);
+		attackedSquaresLoopParallel(8,1,false);
+		attackedSquaresLoopParallel(1,-1,false);
+		attackedSquaresLoopDiagonal(8,8,1,1);
+		attackedSquaresLoopDiagonal(8,1,1,-1);
+		attackedSquaresLoopDiagonal(1,8,-1,1);
+		attackedSquaresLoopDiagonal(1,1,-1,-1);
 		
+		System.out.println(this.toString()+ " is attacking " + getAttackedSquaresString());
 	}
+	
+
 
 
 	@Override

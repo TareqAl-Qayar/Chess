@@ -23,14 +23,15 @@ public class King extends Piece {
 
 	@Override
 	public boolean legalMove(Square targetSquare) {
-		// TODO cant move into check 
 		// TODO castling
 		
 		if(targetSquare.isBlocked(this)) {
 			return false;
 		}
 		
-		
+		if(Game.getAttackedSquaresByOppositeColour(this).contains(targetSquare)) {
+			return false;
+		}
 		
 		if(targetSquare.isReachable()) {
 			return false;
@@ -47,7 +48,26 @@ public class King extends Piece {
 	@Override
 	public void findAttackedSquares() {
 		// TODO Auto-generated method stub
-		
+		this.getAttackedSquares().clear();
+		for(int i = -1 ; i <2; i++) {
+			if(this.getXCoordinate()+i>0&&this.getXCoordinate()<9) {
+				if(Board.getSquare(this.getXCoordinate()+i, this.getYCoordinate()).isBlocked(this)==false) {
+					this.getAttackedSquares().add(Board.getSquare(this.getXCoordinate()+i, this.getYCoordinate()));
+				}
+				if (this.getYCoordinate()+1<9) {
+					if (Board.getSquare(this.getXCoordinate() + i, this.getYCoordinate()+1).isBlocked(this) == false) {
+						this.getAttackedSquares()
+								.add(Board.getSquare(this.getXCoordinate() + i, this.getYCoordinate()+1));
+					} 
+				}
+				if (this.getYCoordinate()-1>0) {
+					if (Board.getSquare(this.getXCoordinate() + i, this.getYCoordinate()-1).isBlocked(this) == false) {
+						this.getAttackedSquares()
+								.add(Board.getSquare(this.getXCoordinate() + i, this.getYCoordinate()-1));
+					} 
+				}
+			}
+		}
 	}
 
 
