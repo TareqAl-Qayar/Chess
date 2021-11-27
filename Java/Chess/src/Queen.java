@@ -20,7 +20,7 @@ public class Queen extends Piece {
 		super(PieceType.Queen, colour, square);
 	}
 
-	
+
 	@Override
 	public boolean legalMove(Square targetSquare) {
 		if(targetSquare.isBlocked(this)) {
@@ -77,7 +77,7 @@ public class Queen extends Piece {
 	 * @return true if there are no pieces on the squares between current and targetSquare, otherwise false.
 	 */
 	private boolean isWayFreeDiagonal(Square targetSquare) {
-		
+
 		// up and right.
 		if(targetSquare.getXcoordinate() > getXCoordinate() && targetSquare.getYcoordinate() > getYCoordinate()) {
 			int yCounter = getYCoordinate();
@@ -90,7 +90,7 @@ public class Queen extends Piece {
 				}
 			}
 		}
-		
+
 		// up and left
 		if(targetSquare.getXcoordinate() < getXCoordinate() && targetSquare.getYcoordinate() > getYCoordinate()) {
 			int yCounter = getYCoordinate();
@@ -103,7 +103,7 @@ public class Queen extends Piece {
 				}
 			}
 		}
-		
+
 		// down and right
 		if(targetSquare.getXcoordinate() > getXCoordinate() && targetSquare.getYcoordinate() < getYCoordinate()) {
 			int yCounter = getYCoordinate();
@@ -144,10 +144,9 @@ public class Queen extends Piece {
 		attackedSquaresLoopDiagonal(8,1,1,-1);
 		attackedSquaresLoopDiagonal(1,8,-1,1);
 		attackedSquaresLoopDiagonal(1,1,-1,-1);
-		
-		System.out.println(this.toString()+ " is attacking " + getAttackedSquaresString());
+		//System.out.println(this.toString()+ " is attacking " + this.getAttackedSquares().toString());
 	}
-	
+
 
 
 

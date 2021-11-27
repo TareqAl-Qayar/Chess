@@ -68,6 +68,8 @@ public class King extends Piece {
 				}
 			}
 		}
+		//System.out.println(this.toString()+ " is attacking " + this.getAttackedSquares().toString());
+
 	}
 
 

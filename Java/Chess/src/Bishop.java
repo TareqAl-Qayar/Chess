@@ -110,7 +110,8 @@ public class Bishop extends Piece {
 		attackedSquaresLoopDiagonal(8,8,1,1);
 		attackedSquaresLoopDiagonal(8,1,1,-1);
 		attackedSquaresLoopDiagonal(1,8,-1,1);
-		attackedSquaresLoopDiagonal(1,1,-1,-1);		
+		attackedSquaresLoopDiagonal(1,1,-1,-1);
+		//System.out.println(this.toString()+ " is attacking " + this.getAttackedSquares().toString());
 	}
 	
 

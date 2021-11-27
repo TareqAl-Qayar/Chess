@@ -77,7 +77,7 @@ public class Game {
 		blackPieces.add(knightBlackF);
 		blackPieces.add(queenBlack);
 		blackPieces.add(rookBlackA);
-		blackPieces.add(rookWhiteH);
+		blackPieces.add(rookBlackH);
 		for(int i = 0 ; i<pawnsBlack.length;i++) {
 			blackPieces.add(pawnsBlack[i]);
 		}
@@ -133,11 +133,9 @@ public class Game {
 	// TODO have to protect after being checked
 	// TODO can't move if pinned to the king.
 	public static void move() {
-		// TODO add try catch null pointer exception?
 
 		if(turnWhite == startingSquare.getPiece().getColour().ColourToBoolean()) {
 			if (startingSquare.isOccupied()==true) {
-				// TODO fix this.... needs to be rearrange more logically to help implement king being attacked.
 				Piece piece = startingSquare.getPiece();
 				if (piece.legalMove(targetSquare)) {
 					boolean isMoveCapture = false;
@@ -148,15 +146,10 @@ public class Game {
 						capturePiece(targetSquare);
 						isMoveCapture = true;
 					}
-
-					
-
-					repostionPiece(startingSquare, targetSquare);
-
+					repositionPiece(startingSquare, targetSquare);
 					piece.incrementMoves(); 
-					turnWhite = !turnWhite;
+					changeTurn();
 					logMove(isMoveCapture);
-
 					findAttackedSquares();
 					if(isKingOnAttackedSquare(piece)) {
 						undoMove();
@@ -164,6 +157,12 @@ public class Game {
 					else {
 						changeLastSquaresToBlue();	
 					}
+				}
+				else if(shortCastleCondition(startingSquare,targetSquare)) {
+					castleShort(startingSquare,targetSquare);
+				}
+				else if(longCastleCondition(startingSquare,targetSquare)) {
+					castleLong(startingSquare,targetSquare);
 				}
 				else {
 					startingSquare.resetColour();	
@@ -181,11 +180,120 @@ public class Game {
 	}
 
 	/**
+	 * Implements the short castling move.
+	 * @param startingSquare The square the king is on; e1 or e8.
+	 * @param targetSquare The square the king is moved to; g1 or g8.
+	 */
+	private static void castleShort(Square startingSquare, Square targetSquare) {
+		// TODO move the conditions to the conditons method.
+		if(startingSquare.getPiece().getMoves()== 0 && isKingOnAttackedSquare(startingSquare.getPiece())==false) {
+			Square rookSquare = Board.getSquare(targetSquare.getXcoordinate() + 1, targetSquare.getYcoordinate());
+			if (rookSquare.isOccupied()) {
+				if (rookSquare.getPiece().getMoves()==0) {
+					Square f1Orf8 = Board.getSquare(startingSquare.getXcoordinate()+1, startingSquare.getYcoordinate());
+					if((targetSquare.isOccupied()==false&&isSquareAttackedByOpposite(targetSquare,startingSquare.getPiece())==false)&&(f1Orf8.isOccupied()==false&&isSquareAttackedByOpposite(f1Orf8,startingSquare.getPiece())==false)) {
+						changeLastSquarestoOriginalColour();
+						rookSquare.getPiece().incrementMoves();
+						startingSquare.getPiece().incrementMoves();
+						repositionPiece(startingSquare,targetSquare);
+						repositionPiece(rookSquare,f1Orf8);
+						logMove(false);
+						changeLastSquaresToBlue();
+						changeTurn();
+					}
+				}
+			}
+		}
+	}
+	/**
+	 * Checks that the king is not under attack and the squares are free and not being attacked when castling.
+	 * @param startingSquare The square the king is on; e1 or e8.
+	 * @param targetSquare The square the king is moved to; g1 or g8.
+	 * @return
+	 */
+	private static boolean shortCastleCondition(Square startingSquare, Square targetSquare) {
+		if((startingSquare.getXcoordinate()==5&&(startingSquare.getYcoordinate()==1||startingSquare.getYcoordinate()==8))&&(targetSquare.getXcoordinate()==7&&(targetSquare.getYcoordinate()==1||targetSquare.getYcoordinate()==8))) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * implements the long castle move
+	 * @param startingSquare The kings original square with the king on it; e1 or e8.
+	 * @param targetSquare The square the king will be moved to; c1 or c8.
+	 */
+	private static void castleLong(Square startingSquare, Square targetSquare) {
+		changeLastSquarestoOriginalColour();
+		startingSquare.getPiece().incrementMoves();
+		Board.getSquare(1, startingSquare.getYcoordinate()).getPiece().incrementMoves();
+		repositionPiece(startingSquare,targetSquare);
+		repositionPiece(Board.getSquare(1, startingSquare.getYcoordinate()),Board.getSquare(4, startingSquare.getYcoordinate()));
+		logMove(false);
+		changeLastSquaresToBlue();
+		changeTurn();
+	}
+	
+	/**
+	 * Checks if the long castling move is possible 
+	 * @param startingSquare The kings original square with the king on it; e1 or e8.
+	 * @param targetSquare	 The square the king will be moved to; c1 or c8.
+	 * @return	true if the castling long is possible, otherwise false.
+	 */
+	private static boolean longCastleCondition(Square startingSquare, Square targetSquare) {
+		if(startingSquare.getXcoordinate()!=5&&(startingSquare.getYcoordinate()!=1||startingSquare.getYcoordinate()!=8)) {
+			System.out.println("1");
+			return false;
+		}
+		if(targetSquare.getXcoordinate()!=3 && (targetSquare.getYcoordinate()!=1||targetSquare.getYcoordinate()!=8)){
+			System.out.println("2");
+			return false;
+		}
+		if(startingSquare.getPiece().getMoves()!=0 || isSquareAttackedByOpposite(startingSquare,startingSquare.getPiece())) {
+			System.out.println("3");
+			return false;
+		}
+		if(Board.getSquare(1, startingSquare.getYcoordinate()).isOccupied()==false) {
+			System.out.println("4");
+			return false;
+		}
+		if(Board.getSquare(1, startingSquare.getYcoordinate()).getPiece().getMoves()!=0) {
+			System.out.println("5");
+			return false;
+		}
+		for(int i = 4 ; i>1 ;i--) {
+			Square square = Board.getSquare(i, targetSquare.getYcoordinate());
+			if(square.isOccupied()||isSquareAttackedByOpposite(square, startingSquare.getPiece())){
+				System.out.println("6" + i);
+				return false;
+			}
+		}
+		return true;
+	}
+
+
+	/**
+	 * 
+	 * @param square The square that is being checked if being attacked.
+	 * @param piece Provides the colour to check if the opposite side is attacking.
+	 * @return true if the square is being attacked by a piece of the opposite colour, otherwise false.
+	 */
+	private static boolean isSquareAttackedByOpposite(Square square, Piece piece) {
+		if(piece.getColour()==Colour.Black&&getAttackedSquaresWhite().contains(square)) {
+			return true;
+		}
+		if(piece.getColour()==Colour.White&&getAttackedSquaresBlack().contains(square)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Repositions a piece from a square to another, does not check if the move is legal or not, does not increment moves for the piece.
 	 * @param startingSquare square on which the piece is.
 	 * @param targetSquare square onto which the piece is repositioned.
 	 */
-	private static void repostionPiece(Square startingSquare, Square targetSquare) {
+	private static void repositionPiece(Square startingSquare, Square targetSquare) {
 		Piece tempPiece = startingSquare.getPiece();
 		startingSquare.removePiece();
 		targetSquare.addPiece(tempPiece);		
@@ -237,11 +345,7 @@ public class Game {
 		for(Piece piece: whitePieces) {
 			if(piece.isCaptured()==false) {
 				piece.findAttackedSquares();
-				try {
-					attackedSquaresWhite.addAll(piece.getAttackedSquares());
-				} catch (NullPointerException e) {
-					e.printStackTrace();
-				}
+				attackedSquaresWhite.addAll(piece.getAttackedSquares());
 			}
 		}
 		for(Piece piece: blackPieces) {
@@ -265,16 +369,16 @@ public class Game {
 		Square startingSquare = moves.getLast().getTargetSquare();
 		Square targetSquare = moves.getLast().getStartingSquare();
 		startingSquare.getPiece().decreaseMovesByOne();
-		repostionPiece(startingSquare, targetSquare);
+		repositionPiece(startingSquare, targetSquare);
 		changeLastSquarestoOriginalColour();
 		if(moves.get(moves.size()-1).isMoveCapture()) {
 			unCaptureLastPiece(startingSquare);
 		}
 		moves.removeLast();
-		turnWhite = !turnWhite;
+		changeTurn();
 	}
-	
-	
+
+
 	private static void unCaptureLastPiece(Square targetSquare) {
 		Piece piece = capturedPieces.get(capturedPieces.size()-1);
 		piece.setCaptured(false);
@@ -305,6 +409,10 @@ public class Game {
 		Square lastTargetSquare = moves.getLast().getTargetSquare();
 		lastStartingSquare.resetColour();
 		lastTargetSquare.resetColour();
+	}
+
+	private static void changeTurn() {
+		turnWhite = !turnWhite;
 	}
 
 	/**

@@ -68,6 +68,7 @@ public class Rook extends Piece {
 		attackedSquaresLoopParallel(1,-1,true);
 		attackedSquaresLoopParallel(8,1,false);
 		attackedSquaresLoopParallel(1,-1,false);
+		//System.out.println(this.toString()+ " is attacking " + this.getAttackedSquares().toString());
 	}
 	
 	

@@ -1,3 +1,7 @@
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+import java.awt.*;
 
 /**
  * 
@@ -117,6 +121,7 @@ public class Pawn extends Piece {
 	//TODO
 	// is invoked automatically when a pawn reaches the end of the board, just need to implement the method to ask what PieceType to promote to.
 	public PieceType promoteTo() {
+		
 		return null;
 	}
 

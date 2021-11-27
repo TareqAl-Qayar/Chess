@@ -215,13 +215,11 @@ public class Square implements  ActionListener {
 					square.getSquareGraphic().setBackground(new Color(222, 88, 40));
 				}
 				else {
-
 					if (Game.getStaringSquare()!=null && Game.getTargetSquare()==null) {
 						Game.setTargetSquare(square);
 						Game.move();
 						System.out.println(square.toString());
 					}
-
 				}
 
 			}
